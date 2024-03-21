@@ -1,3 +1,5 @@
+using Assets.GameCore.GamePlay.Cards;
+
 namespace Assets.GameCore.GamePlay.InteractionStratagy
 {
     public abstract class BaseCardStratage<T> where T : OnCardObjectBase
@@ -9,7 +11,6 @@ namespace Assets.GameCore.GamePlay.InteractionStratagy
         {
             _executor = executor;
         }
-
-        public abstract void DoAction(OneGameCard playerCard);
+        public abstract void DoAction(IPlayerGameCard playerCard);
     }
 }

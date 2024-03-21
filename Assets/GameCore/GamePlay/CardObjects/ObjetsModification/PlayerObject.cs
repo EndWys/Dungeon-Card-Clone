@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.CardObjects.BaseLogic;
+using Assets.GameCore.GamePlay.Cards;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
         {
             //Set starter _health value;
         }
-        public override void Tap(OneGameCard playerCard)
+        public override void Tap(IPlayerGameCard playerGameCard)
         {
             //Player click on himself. Just show short tutorial "how to play"
         }

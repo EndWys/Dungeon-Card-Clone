@@ -1,4 +1,5 @@
 using Assets.GameCore.GamePlay.CardObjects.BaseLogic.MobsBaseLogic;
+using Assets.GameCore.GamePlay.Cards;
 using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.InteractionStratagy
@@ -7,7 +8,7 @@ namespace Assets.GameCore.GamePlay.InteractionStratagy
     {
         public AttackMobStratage(MobObjectBase executor) : base(executor){ }
 
-        public override void DoAction(OneGameCard playerCard)
+        public override void DoAction(IPlayerGameCard playerCard)
         {
             Debug.Log("AttackMob Stratage");
             //if player with weapon

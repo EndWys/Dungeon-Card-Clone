@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.CardObjects.BaseLogic;
+using Assets.GameCore.GamePlay.Cards;
 using Assets.GameCore.GamePlay.InteractionStratagy;
 using System;
 
@@ -18,9 +19,9 @@ public class CoinObject : OnCardObjectBase, IDamageable, ICollectable, IStratage
         //Iniate starter coin value;
     }
 
-    public override void Tap(OneGameCard playerCard)
+    public override void Tap(IPlayerGameCard playerGameCard)
     {
-        Strategy.DoAction(playerCard);
+        Strategy.DoAction(playerGameCard);
     }
 
     public void Collect()

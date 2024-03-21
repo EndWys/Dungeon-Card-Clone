@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay.CardObjects.BaseLogic.MobsBaseLogic;
 using Assets.GameCore.GamePlay.CardObjects.ObjetsModification;
+using Assets.GameCore.GamePlay.Cards;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ namespace Assets.GameCore.GamePlay
 
     public class GameField : MonoBehaviour, ICardClickReceiver
     {
-        const int FIELD_SIZE = 3;
+        private const int FIELD_SIZE = 3;
 
         [SerializeField] private OneGameCard[] oneGameCards = new OneGameCard[FIELD_SIZE * FIELD_SIZE];
+        [SerializeField] private PlayerGameCard _playerCard;
+
         private Dictionary<Vector2Int, OneGameCard> _gameCards = new Dictionary<Vector2Int, OneGameCard>();
 
         private void Awake()
@@ -58,10 +61,8 @@ namespace Assets.GameCore.GamePlay
 
         public void OnCardClick(Vector2Int coord)
         {
-            //Take Player's card
-            OneGameCard playerCard = oneGameCards[0];//need to choose player card
             OneGameCard targetGameCard = _gameCards[coord];
-            targetGameCard.OnTap(playerCard);
+            targetGameCard.OnTap(_playerCard);
             //wait for result
         }
     }

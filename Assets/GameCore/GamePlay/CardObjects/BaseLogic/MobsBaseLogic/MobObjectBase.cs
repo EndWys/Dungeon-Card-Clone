@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.CardObjects.BaseLogic;
+using Assets.GameCore.GamePlay.Cards;
 using Assets.GameCore.GamePlay.InteractionStratagy;
 using System;
 
@@ -22,9 +23,9 @@ namespace Assets.GameCore.GamePlay.CardObjects.BaseLogic.MobsBaseLogic
             //Set starter _health value;
         }
 
-        public override void Tap(OneGameCard oneGameCard)
+        public override void Tap(IPlayerGameCard playerGameCard)
         {
-            Strategy.DoAction(oneGameCard);
+            Strategy.DoAction(playerGameCard);
         }
 
         public void UseStratage(OneGameCard player)

@@ -1,3 +1,4 @@
+using Assets.GameCore.GamePlay.Cards;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -24,9 +25,12 @@ namespace Assets.GameCore.GamePlay
         {
             _onCardObject = onCardObjectBase;
             _onCardObject.OnNeenToDestroy += () => DestroyImmediate(gameObject);
+
+            //TODO: DELETE THIS!
+            _onCardObject.ParentCard = transform;
         }
 
-        public void OnTap(OneGameCard playerCard)
+        public void OnTap(IPlayerGameCard playerCard)
         {
             _onCardObject.Tap(playerCard);
         }
