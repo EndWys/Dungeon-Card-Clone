@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.CardsModification;
+using Assets.GameCore.Utilities.Objects;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Assets.GameCore.GamePlay
         void OnCardClick(Vector2Int coord);
     }
 
-    public class GameField : MonoBehaviour, ICardClickReceiver
+    public class GameField : CachedMonoBehaviour, ICardClickReceiver
     {
         private const int FIELD_SIZE = 3;
 

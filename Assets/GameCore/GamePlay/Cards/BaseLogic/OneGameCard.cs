@@ -1,11 +1,12 @@
 using Assets.GameCore.GamePlay.InteractionStratagy;
+using Assets.GameCore.Utilities.Objects;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
-    public abstract class OneGameCard : MonoBehaviour, IPointerClickHandler
+    public abstract class OneGameCard : CachedMonoBehaviour, IPointerClickHandler
     {
         protected abstract OnCardObjectBase _onCardObject { get; }
         protected abstract BaseCardStratagy _stratagy { get; }
@@ -30,7 +31,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 
         public void Move(Vector3 pos)
         {
-            transform.DOMove(pos, 0.3F);
+            CachedTransform.DOMove(pos, 0.3F);
         }
 
         public void OnPointerClick(PointerEventData eventData)
