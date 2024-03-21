@@ -1,11 +1,8 @@
-using Assets.GameCore.GamePlay.Cards;
-using Assets.GameCore.GamePlay.InteractionStratagy;
-
-namespace Assets.GameCore.GamePlay.CardObjects.BaseLogic
+namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
     public interface ITapable
     {
-        void Tap(IPlayerGameCard playerGameCard);
+        void Tap(IPlayerCardActions playerGameCard);
     }
 
     public interface IStratageUser<T> where T : class

@@ -1,6 +1,5 @@
-using Assets.GameCore.GamePlay.CardObjects.BaseLogic.MobsBaseLogic;
-using Assets.GameCore.GamePlay.CardObjects.ObjetsModification;
-using Assets.GameCore.GamePlay.Cards;
+using Assets.GameCore.GamePlay.Cards.BaseLogic;
+using Assets.GameCore.GamePlay.Cards.CardsModification;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,21 +39,7 @@ namespace Assets.GameCore.GamePlay
 
                     _gameCards.Add(coord, card);
 
-                    //temporary, need to use factory for different cards
-                    if (y == 0 && x == 0)
-                    {
-                        card.SetOnCardObject(new PlayerObject());
-                    } 
-                    else if (y == 1) 
-                    {
-                        card.SetOnCardObject(new CoinObject());
-                    } 
-                    else
-                    {
-                        card.SetOnCardObject(new MobObjectBase());
-                    }
-
-                    i++;
+                   i++;
                 }
             }
         }
