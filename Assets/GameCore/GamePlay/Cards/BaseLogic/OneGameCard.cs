@@ -11,17 +11,19 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
         protected abstract OnCardObjectBase _onCardObject { get; }
         protected abstract BaseCardStratagy _stratagy { get; }
 
-        private ICardClickReceiver _cardClickReceiver;
+        private IParentCardField _cardClickReceiver;
 
         private Vector2Int _coordinates;
+        public Vector2Int Coord => _coordinates;
 
-        public void Init(Vector2Int coord, ICardClickReceiver clickReceiver)
+        public void Init(Vector2Int coord, IParentCardField clickReceiver)
         {
             _coordinates = coord;
             _cardClickReceiver = clickReceiver;
 
-            _onCardObject.OnNeenToDestroy += () => DestroyImmediate(gameObject);
-            _onCardObject.ParentCard = transform;
+            _onCardObject.OnNeenToDestroy += () => DestroyImmediate(CachedGameObject);
+            //TODO: DELETE THIS!
+            _onCardObject.ParentCard = this;
         }
 
         public void OnTap(IPlayerCardActions playerCard)
@@ -29,9 +31,10 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
             _stratagy.UseStratagy(playerCard);
         }
 
-        public void Move(Vector3 pos)
+        public void Move(Vector2Int target)
         {
-            CachedTransform.DOMove(pos, 0.3F);
+            _cardClickReceiver.MoveCard(target, _coordinates);
+            _coordinates = target;
         }
 
         public void OnPointerClick(PointerEventData eventData)

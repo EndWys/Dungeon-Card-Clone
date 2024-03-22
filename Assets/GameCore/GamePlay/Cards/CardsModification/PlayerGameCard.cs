@@ -16,7 +16,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
 
         protected override BaseCardStratagy _stratagy => _playerStratage;
 
-        public new void Move(Vector3 pos)
+        public new void Move(Vector2Int pos)
         {
             base.Move(pos);
         }

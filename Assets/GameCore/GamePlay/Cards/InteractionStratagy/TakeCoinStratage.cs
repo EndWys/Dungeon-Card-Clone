@@ -13,7 +13,8 @@ namespace Assets.GameCore.GamePlay.Cards.InteractionStratagy
         {
             Debug.Log("TakeCoinStratage");
             //Executor.Collect() // collect item by player
-            playerCard.Move(_executor.ParentCard.position);
+            Vector2Int target = _executor.ParentCard.Coord;
+            playerCard.Move(target);
             _executor.DestroyObject(); // destroy item
             //playerCard.Move(targetCard.coordinates)
         }

@@ -6,7 +6,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
     public abstract class OnCardObjectBase
     {
         //TODO: DELETE THIS!
-        public Transform ParentCard;
+        public OneGameCard ParentCard;
 
         public abstract event Action OnNeenToDestroy;
         protected abstract int ObjectValue { get; }
