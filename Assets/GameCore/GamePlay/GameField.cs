@@ -3,6 +3,7 @@ using Assets.GameCore.GamePlay.Cards.CardsModification;
 using Assets.GameCore.Utilities.Objects;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -48,25 +49,6 @@ namespace Assets.GameCore.GamePlay
             }
         }
 
-        public void Step()
-        {
-            Vector2Int noEmptySlot = new Vector2Int(100,100);
-            Vector2Int emptyCoord = noEmptySlot;
-
-            foreach (var slot in _cardSlots)
-            {
-                if (slot.Value.GameCard == null)
-                {
-                    emptyCoord = slot.Key;
-                } 
-                else if (emptyCoord != noEmptySlot && slot.Value.GameCard != _playerCard)
-                {
-                    slot.Value.GameCard.Move(emptyCoord);
-                    return;
-                }
-            }
-        }
-
         public void MoveCard(Vector2Int target, Vector2Int origin)
         {
             var movingCard = _cardSlots[origin].GameCard;
@@ -81,7 +63,42 @@ namespace Assets.GameCore.GamePlay
             OneGameCard targetGameCard = _cardSlots[coord].GameCard;
             targetGameCard.OnTap(_playerCard);
             //wait for result
-            Step();
+            Fill();
+        }
+
+        private void Fill()
+        {
+            Vector2Int coordToFill = _cardSlots.FirstOrDefault(x => x.Value.GameCard == null).Key;
+
+            if (coordToFill == null)
+            {
+                Debug.Log("No empty slots");
+                return;
+            }
+
+            List<Vector2Int> neigneighbourSlots = GetNeigneighbourSlots(coordToFill);
+
+            foreach (var slotCoord in neigneighbourSlots)
+            {
+                if (_cardSlots.TryGetValue(slotCoord, out GameCardSlot slot))
+                {
+                    if (slot.GameCard != null && slot.GameCard != _playerCard)
+                    {
+                        slot.GameCard.Move(coordToFill);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private List<Vector2Int> GetNeigneighbourSlots(Vector2Int coord)
+        {
+            Vector2Int up = coord + Vector2Int.up;
+            Vector2Int down = coord + Vector2Int.down;
+            Vector2Int left = coord + Vector2Int.left;
+            Vector2Int right = coord + Vector2Int.right;
+
+            return new List<Vector2Int> { up, down, left, right };
         }
     }
 }
