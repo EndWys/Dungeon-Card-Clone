@@ -70,7 +70,7 @@ namespace Assets.GameCore.GamePlay
                         card = _playerCard;
                     }
 
-                    card.Init(coord, this);
+                    card.Init(coord, slot, this);
                     slot.SetCard(card);
                     _cardSlots.Add(coord, slot);
 
@@ -98,13 +98,15 @@ namespace Assets.GameCore.GamePlay
 
         private void Fill()
         {
-            Vector2Int coordToFill = _cardSlots.FirstOrDefault(x => x.Value.GameCard == null).Key;
+            var _pairs = _cardSlots.Where(x => x.Value.GameCard == null);
 
-            if (coordToFill == null)
+            if (_pairs.Count() == 0)
             {
                 Debug.Log("No empty slots");
                 return;
             }
+
+            Vector2Int coordToFill = _pairs.FirstOrDefault().Key;
 
             List<Vector2Int> neigneighbourSlots = GetNeigneighbourSlots(coordToFill);
 
@@ -117,7 +119,7 @@ namespace Assets.GameCore.GamePlay
                         slot.GameCard.Move(coordToFill);
                         //Spawn new card
                         OneGameCard card = _cardsPool.GetRandomCard(slot.CachedTransform);
-                        card.Init(slotCoord, this);
+                        card.Init(slotCoord, slot, this);
                         slot.SetCard(card);
                         return;
                     }

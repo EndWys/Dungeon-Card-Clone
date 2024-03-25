@@ -1,8 +1,7 @@
 using Assets.GameCore.GamePlay.InteractionStratagy;
 using Assets.GameCore.PoolingSystem;
-using Assets.GameCore.Utilities.Objects;
-using DG.Tweening;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,18 +13,33 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
         protected abstract BaseCardStratagy _stratagy { get; }
 
         private IParentCardField _cardClickReceiver;
+        private IParentCardSlot _parentSlot;
 
         private Vector2Int _coordinates;
         public Vector2Int Coord => _coordinates;
 
-        public void Init(Vector2Int coord, IParentCardField clickReceiver)
+        private event Action Hide; 
+
+        public void Init(Vector2Int coord, IParentCardSlot slot, IParentCardField clickReceiver)
         {
             _coordinates = coord;
             _cardClickReceiver = clickReceiver;
+            _parentSlot = slot;
 
-            _onCardObject.OnNeenToDestroy += () => DestroyImmediate(CachedGameObject);
             //TODO: DELETE THIS!
             _onCardObject.ParentCard = this;
+
+            _onCardObject.OnNeenToDestroy += Destor;
+        }
+
+        public void SetActionToDestroy(Action action)
+        {
+            Hide += action;
+        }
+        private void Destor()
+        {
+            Hide?.Invoke();
+            Hide = null;
         }
 
         public void OnTap(IPlayerCardActions playerCard)

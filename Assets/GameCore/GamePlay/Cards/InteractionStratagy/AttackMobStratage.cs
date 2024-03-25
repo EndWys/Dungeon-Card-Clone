@@ -17,6 +17,8 @@ namespace Assets.GameCore.GamePlay.Cards.InteractionStratagy
             //Executor.TakeDamage(playerWeaponDamage)
             //else
             //playre take damage(executor.Health)
+            Vector2Int target = _executor.ParentCard.Coord;
+            playerCard.Move(target);
             _executor.DestroyObject();
         }
     }

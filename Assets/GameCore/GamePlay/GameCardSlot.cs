@@ -4,7 +4,12 @@ using UnityEngine;
 
 namespace Assets.GameCore.GamePlay
 {
-    public class GameCardSlot : CachedMonoBehaviour
+    public interface IParentCardSlot
+    {
+        void UnparentCard();
+    }
+
+    public class GameCardSlot : CachedMonoBehaviour, IParentCardSlot
     {
         private OneGameCard _gameCard;
         public OneGameCard GameCard => _gameCard;
@@ -17,6 +22,11 @@ namespace Assets.GameCore.GamePlay
         public void SetCard(OneGameCard card)
         {
             _gameCard = card;
+        }
+
+        public void UnparentCard()
+        {
+            RemoveCard();
         }
     }
 }
