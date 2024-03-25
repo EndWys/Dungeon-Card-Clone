@@ -2,6 +2,7 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.Cards.CardsModification;
 using Assets.GameCore.PoolingSystem;
+using Assets.GameCore.Utilities;
 using Assets.GameCore.Utilities.Objects;
 using DG.Tweening;
 using System.Collections.Generic;
@@ -58,8 +59,10 @@ namespace Assets.GameCore.GamePlay
                 {
                     Vector2Int coord = new Vector2Int(x, y);
 
-                    OneGameCard card;
                     GameCardSlot slot = _slots[i];
+                    _cardSlots.Add(coord, slot);
+
+                    OneGameCard card;
 
                     if (coord != PLAYER_SPAWN)
                     {
@@ -70,9 +73,8 @@ namespace Assets.GameCore.GamePlay
                         card = _playerCard;
                     }
 
-                    card.Init(coord, slot, this);
                     slot.SetCard(card);
-                    _cardSlots.Add(coord, slot);
+                    card.Init(coord, slot, this);
 
                     i++;
                 }
@@ -98,43 +100,43 @@ namespace Assets.GameCore.GamePlay
 
         private void Fill()
         {
-            var _pairs = _cardSlots.Where(x => x.Value.GameCard == null);
-
-            if (_pairs.Count() == 0)
+            if (TryToGetEmptySlot(out Vector2Int coordToFill))
             {
-                Debug.Log("No empty slots");
-                return;
-            }
+                List<Vector2Int> neigneighbourSlots = GamePlayeUtil.GetNeigneighbourSlots(coordToFill);
 
-            Vector2Int coordToFill = _pairs.FirstOrDefault().Key;
-
-            List<Vector2Int> neigneighbourSlots = GetNeigneighbourSlots(coordToFill);
-
-            foreach (var slotCoord in neigneighbourSlots)
-            {
-                if (_cardSlots.TryGetValue(slotCoord, out GameCardSlot slot))
+                foreach (var slotCoord in neigneighbourSlots)
                 {
-                    if (slot.GameCard != null && slot.GameCard != _playerCard)
+                    if (_cardSlots.ContainsKey(slotCoord))
                     {
-                        slot.GameCard.Move(coordToFill);
-                        //Spawn new card
-                        OneGameCard card = _cardsPool.GetRandomCard(slot.CachedTransform);
-                        card.Init(slotCoord, slot, this);
-                        slot.SetCard(card);
-                        return;
+                        var slot = _cardSlots[slotCoord];
+
+                        if (slot.GameCard != null && slot.GameCard != _playerCard)
+                        {
+                            //Move 1 card to empty slot
+                            slot.GameCard.Move(coordToFill);
+                            //Then spawn new card on it's place
+                            OneGameCard card = _cardsPool.GetRandomCard(slot.CachedTransform);
+                            card.Init(slotCoord, slot, this);
+                            slot.SetCard(card);
+                            return;
+                        }
                     }
                 }
             }
         }
 
-        private List<Vector2Int> GetNeigneighbourSlots(Vector2Int coord)
+        public bool TryToGetEmptySlot(out Vector2Int coord)
         {
-            Vector2Int up = coord + Vector2Int.up;
-            Vector2Int down = coord + Vector2Int.down;
-            Vector2Int left = coord + Vector2Int.left;
-            Vector2Int right = coord + Vector2Int.right;
+            var _pairs = _cardSlots.Where(x => x.Value.GameCard == null);
 
-            return new List<Vector2Int> { up, down, left, right };
+            if (_pairs.Count() == 0)
+            {
+                coord = Vector2Int.zero;
+                return false;
+            }
+
+            coord = _pairs.FirstOrDefault().Key;
+            return true;
         }
     }
 }

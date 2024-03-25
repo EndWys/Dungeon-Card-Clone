@@ -6,7 +6,7 @@ namespace Assets.GameCore.GamePlay
 {
     public interface IParentCardSlot
     {
-        void UnparentCard();
+
     }
 
     public class GameCardSlot : CachedMonoBehaviour, IParentCardSlot
@@ -22,11 +22,6 @@ namespace Assets.GameCore.GamePlay
         public void SetCard(OneGameCard card)
         {
             _gameCard = card;
-        }
-
-        public void UnparentCard()
-        {
-            RemoveCard();
         }
     }
 }

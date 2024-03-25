@@ -12,7 +12,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
         protected abstract OnCardObjectBase _onCardObject { get; }
         protected abstract BaseCardStratagy _stratagy { get; }
 
-        private IParentCardField _cardClickReceiver;
+        private IParentCardField _parentCardField;
         private IParentCardSlot _parentSlot;
 
         private Vector2Int _coordinates;
@@ -20,10 +20,10 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 
         private event Action Hide; 
 
-        public void Init(Vector2Int coord, IParentCardSlot slot, IParentCardField clickReceiver)
+        public void Init(Vector2Int coord, IParentCardSlot slot, IParentCardField parentField)
         {
             _coordinates = coord;
-            _cardClickReceiver = clickReceiver;
+            _parentCardField = parentField;
             _parentSlot = slot;
 
             //TODO: DELETE THIS!
@@ -49,7 +49,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 
         public void Move(Vector2Int target)
         {
-            _cardClickReceiver.MoveCard(target, _coordinates);
+            _parentCardField.MoveCard(target, _coordinates);
             _coordinates = target;
         }
 
@@ -58,7 +58,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
             if (eventData.button != PointerEventData.InputButton.Left)
                 return;
 
-            _cardClickReceiver.OnCardClick(_coordinates);
+            _parentCardField.OnCardClick(_coordinates);
         }
     }
 }
