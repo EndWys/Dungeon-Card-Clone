@@ -7,7 +7,12 @@ using UnityEngine.EventSystems;
 
 namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
-    public abstract class OneGameCard : PoolingObject, IPointerClickHandler
+    public interface IParentCard
+    {
+        Vector2Int Coord { get; }
+    }
+
+    public abstract class OneGameCard : PoolingObject, IPointerClickHandler, IParentCard
     {
         protected abstract OnCardObjectBase _onCardObject { get; }
         protected abstract BaseCardStratagy _stratagy { get; }
@@ -26,9 +31,12 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
             _parentCardField = parentField;
             _parentSlot = slot;
 
-            //TODO: DELETE THIS!
-            _onCardObject.ParentCard = this;
+            InitOnCardObject();
+        }
 
+        private void InitOnCardObject()
+        {
+            _onCardObject.ParentCard = this;
             _onCardObject.OnNeenToDestroy += Destor;
         }
 
