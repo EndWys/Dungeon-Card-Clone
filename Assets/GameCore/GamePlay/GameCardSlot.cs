@@ -6,7 +6,7 @@ namespace Assets.GameCore.GamePlay
 {
     public class GameCardSlot : CachedMonoBehaviour
     {
-        [SerializeField] private OneGameCard _gameCard;
+        private OneGameCard _gameCard;
         public OneGameCard GameCard => _gameCard;
 
         public void RemoveCard()

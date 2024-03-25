@@ -24,7 +24,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.MobsBaseLogic
 
         public override void DestroyObject()
         {
-            //Destroy Mob, some actions
+            OnNeenToDestroy?.Invoke();
         }
     }
 }

@@ -1,12 +1,14 @@
 using Assets.GameCore.GamePlay.InteractionStratagy;
+using Assets.GameCore.PoolingSystem;
 using Assets.GameCore.Utilities.Objects;
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
-    public abstract class OneGameCard : CachedMonoBehaviour, IPointerClickHandler
+    public abstract class OneGameCard : PoolingObject, IPointerClickHandler
     {
         protected abstract OnCardObjectBase _onCardObject { get; }
         protected abstract BaseCardStratagy _stratagy { get; }

@@ -7,10 +7,9 @@ namespace Assets.GameCore.GamePlay.Cards.ObjetsModification
     {
         private int _coinsValue;
 
-        public override event Action OnNeenToDestroy = () => { };
         protected override int ObjectValue => _coinsValue;
         public int Durability => _coinsValue;
-
+        public override event Action OnNeenToDestroy = () => { };
         public override void Init(int starterValue)
         {
             //Iniate starter coin value;

@@ -1,11 +1,13 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
+using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.Cards.CardsModification;
+using Assets.GameCore.PoolingSystem;
 using Assets.GameCore.Utilities.Objects;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace Assets.GameCore.GamePlay
 {
@@ -17,16 +19,34 @@ namespace Assets.GameCore.GamePlay
 
     public class GameField : CachedMonoBehaviour, IParentCardField
     {
+        private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
         private const int FIELD_SIZE = 3;
 
-        [SerializeField] private PlayerGameCard _playerCard;
-        [SerializeField] private GameCardSlot[] _slots = new GameCardSlot[FIELD_SIZE * FIELD_SIZE];
+        [SerializeField] CardsDatabase _cardsDatabase;
 
+        [SerializeField] private PlayerGameCard _playerCard;
+        private GameCardSlot[] _slots = new GameCardSlot[FIELD_SIZE * FIELD_SIZE];
         private Dictionary<Vector2Int, GameCardSlot> _cardSlots = new Dictionary<Vector2Int, GameCardSlot>();
+
+        private CardsPool _cardsPool;
 
         private void Awake()
         {
+            _cardsDatabase.Init();
+
+            FindAllSlots();
+            InitializePool();
             InitializeField();
+        }
+        private void FindAllSlots()
+        {
+            _slots = GetComponentsInChildren<GameCardSlot>();
+        }
+
+        private void InitializePool()
+        {
+            _cardsPool = new CardsPool();
+            _cardsPool.Initialize();
         }
 
         private void InitializeField()
@@ -36,12 +56,22 @@ namespace Assets.GameCore.GamePlay
             {
                 for (int x = 0; x < FIELD_SIZE; x++)
                 {
-                    GameCardSlot slot = _slots[i];
-                    OneGameCard card = slot.GameCard;
-
                     Vector2Int coord = new Vector2Int(x, y);
 
+                    OneGameCard card;
+                    GameCardSlot slot = _slots[i];
+
+                    if (coord != PLAYER_SPAWN)
+                    {
+                        card = _cardsPool.GetRandomCard(slot.CachedTransform);
+                    }
+                    else
+                    {
+                        card = _playerCard;
+                    }
+
                     card.Init(coord, this);
+                    slot.SetCard(card);
                     _cardSlots.Add(coord, slot);
 
                     i++;
@@ -85,6 +115,10 @@ namespace Assets.GameCore.GamePlay
                     if (slot.GameCard != null && slot.GameCard != _playerCard)
                     {
                         slot.GameCard.Move(coordToFill);
+                        //Spawn new card
+                        OneGameCard card = _cardsPool.GetRandomCard(slot.CachedTransform);
+                        card.Init(slotCoord, this);
+                        slot.SetCard(card);
                         return;
                     }
                 }
