@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using UnityEngine;
+using VContainer;
 
 namespace Assets.GameCore.GamePlay
 {
@@ -28,7 +29,8 @@ namespace Assets.GameCore.GamePlay
 
         private CardsPool _cardsPool;
 
-        private void Awake()
+        [Inject]
+        private void Construct()
         {
             FindAllSlots();
             InitializePool();
