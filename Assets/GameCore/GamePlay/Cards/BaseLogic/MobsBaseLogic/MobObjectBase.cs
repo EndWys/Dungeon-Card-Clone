@@ -10,8 +10,6 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.MobsBaseLogic
         protected override int ObjectValue => _health;
         public int Durability => _health;
 
-        public override event Action OnNeenToDestroy = () => { };
-
         public override void Init(int starterValue)
         {
             //Set starter _health value;
@@ -22,9 +20,9 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.MobsBaseLogic
             //Reduce _health by damage
         }
 
-        public override void DestroyObject()
+        public override void Kill()
         {
-            OnNeenToDestroy?.Invoke();
+           ParentCard.OnKillCard();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling.PoolsContaine
         {
             CoinGameCard card = _coinCardsPool.Collect(parent);
 
-            card.SetActionToDestroy(() => _coinCardsPool.Release(card));
+            card.SetActionOnKill(() => _coinCardsPool.Release(card));
 
             return card;
         }

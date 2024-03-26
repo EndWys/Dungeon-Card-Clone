@@ -15,9 +15,8 @@ namespace Assets.GameCore.GamePlay
     public interface IParentCardField
     {
         void MoveCard(Vector2Int target, Vector2Int origin);
-        void OnCardClick(Vector2Int coord);
+        void OnCardTap(Vector2Int coord);
     }
-
     public class GameField : CachedMonoBehaviour, IParentCardField
     {
         private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
@@ -74,7 +73,7 @@ namespace Assets.GameCore.GamePlay
                     }
 
                     slot.SetCard(card);
-                    card.Init(coord, slot, this);
+                    card.Init(coord, this);
 
                     i++;
                 }
@@ -90,15 +89,7 @@ namespace Assets.GameCore.GamePlay
             movingCard.CachedTransform.SetParent(_cardSlots[target].CachedTransform);
         }
 
-        public void OnCardClick(Vector2Int coord)
-        {
-            OneGameCard targetGameCard = _cardSlots[coord].GameCard;
-            targetGameCard.OnTap(_playerCard);
-            //wait for result
-            Fill();
-        }
-
-        private void Fill()
+        private void Step()
         {
             if (TryToGetEmptySlot(out Vector2Int coordToFill))
             {
@@ -109,14 +100,13 @@ namespace Assets.GameCore.GamePlay
                     if (_cardSlots.ContainsKey(slotCoord))
                     {
                         var slot = _cardSlots[slotCoord];
-
                         if (slot.GameCard != null && slot.GameCard != _playerCard)
                         {
                             //Move 1 card to empty slot
                             slot.GameCard.Move(coordToFill);
                             //Then spawn new card on it's place
                             OneGameCard card = _cardsPool.GetRandomCard(slot.CachedTransform);
-                            card.Init(slotCoord, slot, this);
+                            card.Init(slotCoord, this);
                             slot.SetCard(card);
                             return;
                         }
@@ -125,7 +115,7 @@ namespace Assets.GameCore.GamePlay
             }
         }
 
-        public bool TryToGetEmptySlot(out Vector2Int coord)
+        private bool TryToGetEmptySlot(out Vector2Int coord)
         {
             var _pairs = _cardSlots.Where(x => x.Value.GameCard == null);
 
@@ -137,6 +127,17 @@ namespace Assets.GameCore.GamePlay
 
             coord = _pairs.FirstOrDefault().Key;
             return true;
+        }
+
+        public void OnCardTap(Vector2Int coord)
+        {
+            if (_playerCard.ValidateAction(coord))
+            {
+                OneGameCard targetGameCard = _cardSlots[coord].GameCard;
+                targetGameCard.OnTap(_playerCard);
+                //wait for result
+                Step();
+            }
         }
     }
 }

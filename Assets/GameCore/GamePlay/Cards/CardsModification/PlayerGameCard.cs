@@ -3,6 +3,7 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.MobsBaseLogic;
 using Assets.GameCore.GamePlay.Cards.InteractionStratagy;
 using Assets.GameCore.GamePlay.InteractionStratagy;
+using Assets.GameCore.Utilities;
 using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.CardsModification
@@ -16,9 +17,9 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
 
         protected override BaseCardStratagy _stratagy => _playerStratage;
 
-        public new void Move(Vector2Int pos)
+        public bool ValidateAction(Vector2Int target)
         {
-            base.Move(pos);
+            return GamePlayeUtil.GetNeigneighbourSlots(Coord).Contains(target);
         }
     }
 }

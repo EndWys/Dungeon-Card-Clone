@@ -17,7 +17,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling.PoolsContaine
         {
             MobGameCard card = _mobCardsPool.Collect(parent);
 
-            card.SetActionToDestroy(() => _mobCardsPool.Release(card));
+            card.SetActionOnKill(() => _mobCardsPool.Release(card));
 
             return card;
         }

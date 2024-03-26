@@ -8,10 +8,8 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
         private int _health;
 
         protected override int ObjectValue => _health;
-
         public int Durability => _health;
 
-        public override event Action OnNeenToDestroy = () => { };
         //Carriying weapon mechanic
         public override void Init(int starterValue)
         {
@@ -25,9 +23,9 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
         }
 
 
-        public override void DestroyObject()
+        public override void Kill()
         {
-            //Destroy Player, some actions
+            ParentCard.OnKillCard();
         }
     }
 }

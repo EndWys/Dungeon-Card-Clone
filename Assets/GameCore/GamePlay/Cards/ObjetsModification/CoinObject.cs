@@ -9,7 +9,6 @@ namespace Assets.GameCore.GamePlay.Cards.ObjetsModification
 
         protected override int ObjectValue => _coinsValue;
         public int Durability => _coinsValue;
-        public override event Action OnNeenToDestroy = () => { };
         public override void Init(int starterValue)
         {
             //Iniate starter coin value;
@@ -27,9 +26,9 @@ namespace Assets.GameCore.GamePlay.Cards.ObjetsModification
             //Tacking dame reduce value of coin
         }
 
-        public override void DestroyObject()
+        public override void Kill()
         {
-            OnNeenToDestroy?.Invoke();
+            ParentCard.OnKillCard();
             //Add Coins to player Balance
             //Disable Card object
             //Maybe release to it pool
