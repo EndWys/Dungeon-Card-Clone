@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using VContainer;
 
 namespace Assets.GameCore.GameInitialization
@@ -11,9 +12,19 @@ namespace Assets.GameCore.GameInitialization
         [Inject]
         public GameLoader() { }
 
-        public UniTask StartInitialLoading(CancellationToken token)
+        private Task GameLoadingTasks()
         {
-            //var task = taskDelayed(gameLoadingTasks);
+            return Task.WhenAll(
+                ResourcesLoading.GetDataLoadingTask()
+                //...                          
+                );
+        }
+
+        public async UniTask StartInitialLoading(CancellationToken token)
+        {
+            var task = GameLoadingTasks();
+
+            await task;
 
             if (LoadedOnce)
             {
@@ -30,7 +41,6 @@ namespace Assets.GameCore.GameInitialization
 
             //LoadingScene.executeTask(LoadingScene.Style.Loading, task).Forget();
             ApplicationLifetimeScope.GetOpenFirstSceneTask().Forget();
-            return UniTask.CompletedTask;
         }
     }
 }

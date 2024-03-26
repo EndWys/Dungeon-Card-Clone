@@ -9,7 +9,6 @@ namespace Assets.GameCore.GameInitialization
 {
     public class ApplicationLifetimeScope : LifetimeScope
     {
-
         [SerializeField] SceneData _entryScene;
         [SerializeField] SceneData _firstGameScene;
 
@@ -20,6 +19,7 @@ namespace Assets.GameCore.GameInitialization
             //Other refistrations
             //...
             LoadingModuleRegistrations.register(builder);
+            builder.Register<CardsDatabase>(Lifetime.Singleton);
             //...
             //Other refistrations
 

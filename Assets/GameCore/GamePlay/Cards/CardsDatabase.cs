@@ -6,9 +6,9 @@ public class CardsDatabase : ScriptableObject
     private static CardsDatabase _instance;
     public static CardsDatabase Instance => _instance;
 
-    public void Init()
+    public static void SetInstance(CardsDatabase cardData)
     {
-        _instance = this;
+        _instance = cardData;
     }
 
     public GameObject MobCard;

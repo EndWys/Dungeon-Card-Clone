@@ -22,8 +22,6 @@ namespace Assets.GameCore.GamePlay
         private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
         private const int FIELD_SIZE = 3;
 
-        [SerializeField] CardsDatabase _cardsDatabase;
-
         [SerializeField] private PlayerGameCard _playerCard;
         private GameCardSlot[] _slots = new GameCardSlot[FIELD_SIZE * FIELD_SIZE];
         private Dictionary<Vector2Int, GameCardSlot> _cardSlots = new Dictionary<Vector2Int, GameCardSlot>();
@@ -32,8 +30,6 @@ namespace Assets.GameCore.GamePlay
 
         private void Awake()
         {
-            _cardsDatabase.Init();
-
             FindAllSlots();
             InitializePool();
             InitializeField();
