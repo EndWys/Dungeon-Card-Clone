@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling.PoolsContainer;
+using Assets.GameCore.GamePlay.Cards.ItemsCards.Potion;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
         {
             yield return new CoinsPoolContainer();
             yield return new MobsPoolContainer();
+            yield return new PotionPoolContainer();
         }
 
         private void Initialize()

@@ -12,10 +12,8 @@ namespace Assets.GameCore.GamePlay.Cards.InteractionStratagy
         public override void UseStratagy(IPlayerCardActions playerCard)
         {
             Debug.Log("TakeCoinStratage");
-            //Executor.Collect() // collect item by player
             playerCard.Move(_executor.ParentCard.Coord);
-            _executor.Kill(); // destroy item
-            //playerCard.Move(targetCard.coordinates)
+            _executor.Kill();
         }
     }
 }

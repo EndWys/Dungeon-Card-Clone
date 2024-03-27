@@ -29,6 +29,12 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
 
         public bool ValidateAction(Vector2Int target)
         {
+            if (_playerObject.IsDead)
+            {
+                Debug.Log("Player is dead");
+                return false;
+            }
+
             return GamePlayeUtil.GetNeigneighbourSlots(Coord).Contains(target);
         }
     }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MobCard: {fileID: 7607413007999246419, guid: bc24583116a622345bc0f213a67520c5, type: 3}
   CoinCard: {fileID: 4308042105301104313, guid: 735c64b2a1e0dbc46b7bc5e2ff9de5ec, type: 3}
+  PotionnCard: {fileID: 7565146457282215234, guid: f4b9caba96e8a3d4794b21c4ba8a5520, type: 3}

@@ -17,6 +17,11 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
         void TakeDamage(int damage);
     }
 
+    public interface IDamageableAndHealable : IDamageable
+    {
+        void Heal(int heal);
+    }
+   
     public interface ICollectable
     {
         void Collect();
