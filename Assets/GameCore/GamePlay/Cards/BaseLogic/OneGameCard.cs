@@ -20,7 +20,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 
         private Vector2Int _coordinates;
 
-        private event Action OnKill;
+        private event Action _onKill;
 
         protected abstract OnCardObjectBase _onCardObject { get; }
         protected abstract BaseCardStratagy _stratagy { get; }
@@ -65,12 +65,12 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 
         public void OnKillCard()
         {
-            OnKill?.Invoke();
+            _onKill?.Invoke();
         }
 
         public void SetActionOnKill(Action action)
         {
-            OnKill += action;
+            _onKill += action;
         }
 
         public override void OnCollect()
@@ -83,7 +83,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
         public override void OnRelease()
         {
             base.OnRelease();
-            OnKill -= OnKillCard;
+            _onKill -= OnKillCard;
         }
         #endregion
     }
