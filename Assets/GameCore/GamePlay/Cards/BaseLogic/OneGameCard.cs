@@ -1,7 +1,7 @@
 using Assets.GameCore.GamePlay.InteractionStratagy;
 using Assets.GameCore.PoolingSystem;
+using DG.Tweening;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,15 +16,16 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 
     public abstract class OneGameCard : PoolingObject, IPointerClickHandler, IParentCard
     {
-        protected abstract OnCardObjectBase _onCardObject { get; }
-        protected abstract BaseCardStratagy _stratagy { get; }
-
         private IParentCardField _parentCardField;
 
         private Vector2Int _coordinates;
-        public Vector2Int Coord => _coordinates;
 
-        private event Action OnKill; 
+        private event Action OnKill;
+
+        protected abstract OnCardObjectBase _onCardObject { get; }
+        protected abstract BaseCardStratagy _stratagy { get; }
+
+        public Vector2Int Coord => _coordinates;
 
         public void Init(Vector2Int coord, IParentCardField parentField)
         {
@@ -72,9 +73,16 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
             OnKill += action;
         }
 
-
-        private void OnDisable()
+        public override void OnCollect()
         {
+            base.OnCollect();
+            CachedTransform.localScale = Vector3.zero;
+            CachedTransform.DOScale(Vector3.one, 0.4F);
+        }
+
+        public override void OnRelease()
+        {
+            base.OnRelease();
             OnKill -= OnKillCard;
         }
         #endregion

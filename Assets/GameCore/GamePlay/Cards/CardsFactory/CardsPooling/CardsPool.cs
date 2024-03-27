@@ -1,19 +1,30 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling.PoolsContainer;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using VContainer;
 
 namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
 {
     public class CardsPool
     {
-        private List<CardsPoolContainerBase> _poolContainers = new List<CardsPoolContainerBase>()
-        {
-            new CoinsPoolContainer(),
-            new MobsPoolContainer(),
-        };
+        private List<CardsPoolContainerBase> _poolContainers;
 
-        public void Initialize()
+        [Inject]
+        public CardsPool()
+        {
+            _poolContainers = BuildPoolContainerList().ToList();
+            Initialize();
+        }
+
+        private IEnumerable<CardsPoolContainerBase> BuildPoolContainerList()
+        {
+            yield return new CoinsPoolContainer();
+            yield return new MobsPoolContainer();
+        }
+
+        private void Initialize()
         {
             foreach(var container in _poolContainers)
             {
@@ -23,7 +34,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
 
         public OneGameCard GetRandomCard(Transform parent)
         {
-            return _poolContainers[UnityEngine.Random.Range(0, _poolContainers.Count)].CollectCard(parent);
+            return _poolContainers[Random.Range(0, _poolContainers.Count)].CollectCard(parent);
         }
     }
 }

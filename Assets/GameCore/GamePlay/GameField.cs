@@ -13,51 +13,43 @@ using VContainer;
 
 namespace Assets.GameCore.GamePlay
 {
+    public interface IInitializableField
+    {
+        void InitializeField();
+    }
+
     public interface IParentCardField
     {
         void MoveCard(Vector2Int target, Vector2Int origin);
         void OnCardTap(Vector2Int coord);
     }
-    public class GameField : CachedMonoBehaviour, IParentCardField
+    public class GameField : IParentCardField, IInitializableField
     {
+        private static int FIELD_SIZE => GameFildView.FIELD_SIZE;
         private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
-        private const int FIELD_SIZE = 3;
 
-        [SerializeField] private PlayerGameCard _playerCard;
-        private GameCardSlot[] _slots = new GameCardSlot[FIELD_SIZE * FIELD_SIZE];
-        private Dictionary<Vector2Int, GameCardSlot> _cardSlots = new Dictionary<Vector2Int, GameCardSlot>();
+        private PlayerGameCard _playerCard;
+        private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
 
         private CardsPool _cardsPool;
 
         [Inject]
-        private void Construct()
+        private GameField(GameFildView fildView, CardsPool cardsPool)
         {
-            FindAllSlots();
-            InitializePool();
-            InitializeField();
-        }
-        private void FindAllSlots()
-        {
-            _slots = GetComponentsInChildren<GameCardSlot>();
+            _cardsPool = cardsPool;
+            _cardSlots = fildView.BuildFieldMap();
+            _playerCard = fildView.PlayerCard;
         }
 
-        private void InitializePool()
+        public void InitializeField()
         {
-            _cardsPool = new CardsPool();
-            _cardsPool.Initialize();
-        }
-
-        private void InitializeField()
-        {
-            int i = 0;
             for (int y = 0; y < FIELD_SIZE; y++)
             {
                 for (int x = 0; x < FIELD_SIZE; x++)
                 {
-                    Vector2Int coord = new Vector2Int(x, y);
+                    var coord = new Vector2Int(x, y);
 
-                    GameCardSlot slot = _slots[i];
-                    _cardSlots.Add(coord, slot);
+                    GameCardSlot slot = _cardSlots[coord];
 
                     OneGameCard card;
 
@@ -72,8 +64,6 @@ namespace Assets.GameCore.GamePlay
 
                     slot.SetCard(card);
                     card.Init(coord, this);
-
-                    i++;
                 }
             }
         }
