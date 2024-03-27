@@ -7,10 +7,18 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
 {
     public class MobGameCard : OneGameCard
     {
+        const int MOB_STARTER_HEALTH = 4;
+
         private MobObjectBase _mobObject = new();
         private AttackMobStratage _attackMobStratage => new(_mobObject);
         protected override OnCardObjectBase _onCardObject => _mobObject;
 
         protected override BaseCardStratagy _stratagy => _attackMobStratage;
+
+        protected override void InitOnCardObject()
+        {
+            base.InitOnCardObject();
+            _mobObject.Init(MOB_STARTER_HEALTH);
+        }
     }
 }

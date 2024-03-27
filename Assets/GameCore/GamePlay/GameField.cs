@@ -1,9 +1,7 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.Cards.CardsModification;
-using Assets.GameCore.PoolingSystem;
 using Assets.GameCore.Utilities;
-using Assets.GameCore.Utilities.Objects;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Drawing;

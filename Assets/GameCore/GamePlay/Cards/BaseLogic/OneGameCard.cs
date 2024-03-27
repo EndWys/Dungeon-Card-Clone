@@ -35,7 +35,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
             InitOnCardObject();
         }
 
-        private void InitOnCardObject()
+        protected virtual void InitOnCardObject()
         {
             _onCardObject.ParentCard = this;
         }

@@ -10,12 +10,22 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
 {
     public class PlayerGameCard : OneGameCard, IPlayerCardActions
     {
+        const int PLAYER_STARTER_HEALTH = 15;
+
         private PlayerObject _playerObject = new();
         private AttackMobStratage _playerStratage => new(new MobObjectBase());
 
         protected override OnCardObjectBase _onCardObject => _playerObject;
 
         protected override BaseCardStratagy _stratagy => _playerStratage;
+
+        public PlayerObject PlayerObject => _playerObject;
+
+        protected override void InitOnCardObject()
+        {
+            base.InitOnCardObject();
+            _playerObject.Init(PLAYER_STARTER_HEALTH);
+        }
 
         public bool ValidateAction(Vector2Int target)
         {

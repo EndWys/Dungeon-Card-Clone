@@ -1,5 +1,5 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
-using System;
+using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
 {
@@ -13,13 +13,24 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
         //Carriying weapon mechanic
         public override void Init(int starterValue)
         {
-            //Set starter _health value;
+            _health = starterValue;
         }
 
         public void TakeDamage(int damage)
         {
-            //Reduce _health by damage
-            //If health <= 0 -> Game Over
+            if(_health < damage)
+            {
+                _health = 0;
+            }
+            else
+            {
+                _health -= damage;
+            }
+
+            if(_health <= 0)
+            {
+                Debug.Log("health <= 0 -> Game Over");
+            }
         }
 
 
