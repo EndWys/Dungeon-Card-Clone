@@ -13,6 +13,8 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.MobsBaseLogic
         public override void Init(int starterValue)
         {
             //Set starter _health value;
+            _health = starterValue;
+            _coinsBenefit = starterValue;
         }
 
         public void TakeDamage(int damage)

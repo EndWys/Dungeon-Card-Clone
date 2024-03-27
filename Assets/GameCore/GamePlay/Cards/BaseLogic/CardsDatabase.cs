@@ -13,4 +13,5 @@ public class CardsDatabase : ScriptableObject
 
     public GameObject MobCard;
     public GameObject CoinCard;
+    public GameObject PotionnCard;
 }

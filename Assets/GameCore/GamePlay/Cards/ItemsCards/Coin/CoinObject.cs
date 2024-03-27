@@ -12,6 +12,7 @@ namespace Assets.GameCore.GamePlay.Cards.ObjetsModification
         public override void Init(int starterValue)
         {
             //Iniate starter coin value;
+            _coinsValue = starterValue;
         }
 
         public void Collect()
