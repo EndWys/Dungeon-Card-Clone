@@ -737,6 +737,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2648603255176067390, guid: 346f299de85a2054791556d97dbce616, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648603255176067390, guid: 346f299de85a2054791556d97dbce616, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648603255176067390, guid: 346f299de85a2054791556d97dbce616, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9048319671945734150, guid: 346f299de85a2054791556d97dbce616, type: 3}
       propertyPath: m_Name
       value: PalyerCard
