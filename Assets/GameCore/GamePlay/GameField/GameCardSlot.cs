@@ -11,15 +11,15 @@ namespace Assets.GameCore.GamePlay
 
     public class GameCardSlot : CachedMonoBehaviour, IParentCardSlot
     {
-        private OneGameCard _gameCard;
-        public OneGameCard GameCard => _gameCard;
+        private GameCardBase _gameCard;
+        public GameCardBase GameCard => _gameCard;
 
         public void RemoveCard()
         {
             _gameCard = null;
         }
 
-        public void SetCard(OneGameCard card)
+        public void SetCard(GameCardBase card)
         {
             _gameCard = card;
         }

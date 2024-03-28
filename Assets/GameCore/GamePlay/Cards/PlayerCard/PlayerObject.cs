@@ -36,6 +36,8 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
             {
                 Debug.Log("health <= 0 -> Game Over");
             }
+
+            ParentCard.OnCardUI.SetCardValue(_health.ToString());
         }
 
         public void Heal(int heal)
@@ -56,7 +58,8 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
             {
                 _health = newHealth;
             }
-            Debug.Log($"Current HP: {_health}");
+
+            ParentCard.OnCardUI.SetCardValue(_health.ToString());
         }
 
 

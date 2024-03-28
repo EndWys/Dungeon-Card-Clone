@@ -14,7 +14,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling.PoolsContaine
         {
             _coinCardsPool = new Pooling<CoinGameCard>().Initialize(CardsDatabase.Instance.CoinCard, null);
         }
-        public override OneGameCard CollectCard(Transform parent)
+        public override GameCardBase CollectCard(Transform parent)
         {
             CoinGameCard card = _coinCardsPool.Collect(parent);
 

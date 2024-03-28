@@ -13,7 +13,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling.PoolsContaine
         {
             _mobCardsPool = new Pooling<MobGameCard>().Initialize(CardsDatabase.Instance.MobCard, null);
         }
-        public override OneGameCard CollectCard(Transform parent)
+        public override GameCardBase CollectCard(Transform parent)
         {
             MobGameCard card = _mobCardsPool.Collect(parent);
 
