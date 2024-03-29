@@ -41,7 +41,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
         protected override void InitOnCardUI()
         {
             _onCardUI.SetCardName("Hero");
-            _onCardUI.SetCardValue(PLAYER_STARTER_HEALTH.ToString());
+            _onCardUI.SetCardValue($"{PLAYER_STARTER_HEALTH}/{PLAYER_STARTER_HEALTH}");
         }
     }
 }

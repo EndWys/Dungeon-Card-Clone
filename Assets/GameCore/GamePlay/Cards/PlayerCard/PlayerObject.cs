@@ -37,7 +37,7 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
                 Debug.Log("health <= 0 -> Game Over");
             }
 
-            ParentCard.OnCardUI.SetCardValue(_health.ToString());
+            ParentCard.OnCardUI.SetCardValue($"{_health}/{_maxHealth}");
         }
 
         public void Heal(int heal)
@@ -59,7 +59,7 @@ namespace Assets.GameCore.GamePlay.CardObjects.ObjetsModification
                 _health = newHealth;
             }
 
-            ParentCard.OnCardUI.SetCardValue(_health.ToString());
+            ParentCard.OnCardUI.SetCardValue($"{_health}/{_maxHealth}");
         }
 
 
