@@ -5,7 +5,7 @@ using Assets.GameCore.GamePlay.InteractionStratagy;
 
 namespace Assets.GameCore.GamePlay.Cards.CardsModification
 {
-    public class CoinGameCard : OneGameCard
+    public class CoinGameCard : GameCardBase
     {
         const int COIN_STARTER_VALUE = 1;
 
@@ -20,6 +20,12 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
         {
             base.InitOnCardObject();
             _coinObject.Init(COIN_STARTER_VALUE);
+        }
+
+        protected override void InitOnCardUI()
+        {
+            _onCardUI.SetCardName("Coin");
+            _onCardUI.SetCardValue(COIN_STARTER_VALUE.ToString());
         }
     }
 }

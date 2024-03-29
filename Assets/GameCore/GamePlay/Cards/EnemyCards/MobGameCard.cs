@@ -5,7 +5,7 @@ using Assets.GameCore.GamePlay.InteractionStratagy;
 
 namespace Assets.GameCore.GamePlay.Cards.CardsModification
 {
-    public class MobGameCard : OneGameCard
+    public class MobGameCard : GameCardBase
     {
         const int MOB_STARTER_HEALTH = 4;
 
@@ -19,6 +19,12 @@ namespace Assets.GameCore.GamePlay.Cards.CardsModification
         {
             base.InitOnCardObject();
             _mobObject.Init(MOB_STARTER_HEALTH);
+        }
+
+        protected override void InitOnCardUI()
+        {
+            _onCardUI.SetCardName("Enemy");
+            _onCardUI.SetCardValue(MOB_STARTER_HEALTH.ToString());
         }
     }
 }

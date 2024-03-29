@@ -16,7 +16,7 @@ namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Potion
         {
             _potionCardPool = new Pooling<PotionGameCard>().Initialize(CardsDatabase.Instance.PotionnCard, null);
         }
-        public override OneGameCard CollectCard(Transform parent)
+        public override GameCardBase CollectCard(Transform parent)
         {
             PotionGameCard card = _potionCardPool.Collect(parent);
 

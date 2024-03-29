@@ -9,13 +9,17 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
     public interface IParentCard
     {
+        OnCardUI OnCardUI { get; }
+
         Vector2Int Coord { get; }
 
         void OnKillCard();
     }
 
-    public abstract class OneGameCard : PoolingObject, IPointerClickHandler, IParentCard
+    public abstract class GameCardBase : PoolingObject, IPointerClickHandler, IParentCard
     {
+        [SerializeField] protected OnCardUI _onCardUI;
+
         private IParentCardField _parentCardField;
 
         private Vector2Int _coordinates;
@@ -25,21 +29,28 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
         protected abstract OnCardObjectBase _onCardObject { get; }
         protected abstract BaseCardStratagy _stratagy { get; }
 
+        public OnCardUI OnCardUI => _onCardUI;
         public Vector2Int Coord => _coordinates;
 
+        #region Initialization
         public void Init(Vector2Int coord, IParentCardField parentField)
         {
             _coordinates = coord;
             _parentCardField = parentField;
 
             InitOnCardObject();
+            InitOnCardUI();
         }
 
         protected virtual void InitOnCardObject()
         {
             _onCardObject.ParentCard = this;
         }
+        #endregion
 
+        protected abstract void InitOnCardUI();
+
+        #region CardActions
         public void OnTap(IPlayerCardActions playerCard)
         {
             _stratagy.UseStratagy(playerCard);
@@ -50,6 +61,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic
             _parentCardField.MoveCard(target, _coordinates);
             _coordinates = target;
         }
+        #endregion
 
         #region OnPointerClick
         public void OnPointerClick(PointerEventData eventData)

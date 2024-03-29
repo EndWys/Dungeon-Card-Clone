@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Potion
 {
-    public class PotionGameCard : OneGameCard
+    public class PotionGameCard : GameCardBase
     {
         const int POTION_STARTER_VALUE = 2;
 
@@ -21,6 +21,12 @@ namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Potion
         {
             base.InitOnCardObject();
             _potionObject.Init(POTION_STARTER_VALUE);
+        }
+
+        protected override void InitOnCardUI()
+        {
+            _onCardUI.SetCardName("Potion");
+            _onCardUI.SetCardValue(POTION_STARTER_VALUE.ToString());
         }
     }
 }

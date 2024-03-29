@@ -34,7 +34,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
             }
         }
 
-        public OneGameCard GetRandomCard(Transform parent)
+        public GameCardBase GetRandomCard(Transform parent)
         {
             return _poolContainers[Random.Range(0, _poolContainers.Count)].CollectCard(parent);
         }

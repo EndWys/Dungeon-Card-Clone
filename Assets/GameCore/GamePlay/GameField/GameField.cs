@@ -49,7 +49,7 @@ namespace Assets.GameCore.GamePlay
 
                     GameCardSlot slot = _cardSlots[coord];
 
-                    OneGameCard card;
+                    GameCardBase card;
 
                     if (coord != PLAYER_SPAWN)
                     {
@@ -91,7 +91,7 @@ namespace Assets.GameCore.GamePlay
                             //Move 1 card to empty slot
                             slot.GameCard.Move(coordToFill);
                             //Then spawn new card on it's place
-                            OneGameCard card = _cardsPool.GetRandomCard(slot.CachedTransform);
+                            GameCardBase card = _cardsPool.GetRandomCard(slot.CachedTransform);
                             card.Init(slotCoord, this);
                             slot.SetCard(card);
                             return;
@@ -119,7 +119,7 @@ namespace Assets.GameCore.GamePlay
         {
             if (_playerCard.ValidateAction(coord))
             {
-                OneGameCard targetGameCard = _cardSlots[coord].GameCard;
+                GameCardBase targetGameCard = _cardSlots[coord].GameCard;
                 targetGameCard.OnTap(_playerCard);
                 //wait for result
                 Step();
