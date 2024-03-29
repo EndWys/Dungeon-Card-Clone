@@ -1,4 +1,3 @@
-using Assets.GameCore.GamePlay.Cards.CardsModification;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,10 +7,10 @@ namespace Assets.GameCore.GamePlay
     {
         public const int FIELD_SIZE = 3;
 
-        [SerializeField] private PlayerGameCard _playerCard;
+        //[SerializeField] private PlayerGameCard _playerCard;
         [SerializeField] GameCardSlot[] _slots = new GameCardSlot[FIELD_SIZE * FIELD_SIZE];
 
-        public PlayerGameCard PlayerCard => _playerCard;
+        //public PlayerGameCard PlayerCard => _playerCard;
 
         public IReadOnlyDictionary<Vector2Int, GameCardSlot> BuildFieldMap()
         {

@@ -1,10 +1,8 @@
-using Assets.GameCore.GamePlay.Cards.BaseLogic;
+
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
-using Assets.GameCore.GamePlay.Cards.CardsModification;
 using Assets.GameCore.Utilities;
 using DG.Tweening;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using UnityEngine;
 using VContainer;
@@ -26,7 +24,7 @@ namespace Assets.GameCore.GamePlay
         private static int FIELD_SIZE => GameFildView.FIELD_SIZE;
         private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
 
-        private PlayerGameCard _playerCard;
+        //private PlayerGameCard _playerCard;
         private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
 
         private CardsPool _cardsPool;
@@ -36,7 +34,7 @@ namespace Assets.GameCore.GamePlay
         {
             _cardsPool = cardsPool;
             _cardSlots = fildView.BuildFieldMap();
-            _playerCard = fildView.PlayerCard;
+            //_playerCard = fildView.PlayerCard;
         }
 
         public void InitializeField()
@@ -49,19 +47,20 @@ namespace Assets.GameCore.GamePlay
 
                     GameCardSlot slot = _cardSlots[coord];
 
-                    GameCardBase card;
+                    //GameCardBase card;
 
-                    if (coord != PLAYER_SPAWN)
-                    {
-                        card = _cardsPool.GetRandomCard(slot.CachedTransform);
-                    }
-                    else
-                    {
-                        card = _playerCard;
-                    }
+                    /* if (coord != PLAYER_SPAWN)
+                     {
+                         card = _cardsPool.GetRandomCard(slot.CachedTransform);
+                     }
+                     else
+                     {
+                         card = _playerCard;
+                     } 
 
-                    slot.SetCard(card);
-                    card.Init(coord, this);
+                     slot.SetCard(card);
+                     card.Init(coord, this);
+                    */
                 }
             }
         }
@@ -86,7 +85,7 @@ namespace Assets.GameCore.GamePlay
                     if (_cardSlots.ContainsKey(slotCoord))
                     {
                         var slot = _cardSlots[slotCoord];
-                        if (slot.GameCard != null && slot.GameCard != _playerCard)
+                       /* if (slot.GameCard != null && slot.GameCard != _playerCard)
                         {
                             //Move 1 card to empty slot
                             slot.GameCard.Move(coordToFill);
@@ -95,7 +94,7 @@ namespace Assets.GameCore.GamePlay
                             card.Init(slotCoord, this);
                             slot.SetCard(card);
                             return;
-                        }
+                        } */
                     }
                 }
             }
@@ -117,13 +116,13 @@ namespace Assets.GameCore.GamePlay
 
         public void OnCardTap(Vector2Int coord)
         {
-            if (_playerCard.ValidateAction(coord))
+            /*if (_playerCard.ValidateAction(coord))
             {
                 GameCardBase targetGameCard = _cardSlots[coord].GameCard;
                 targetGameCard.OnTap(_playerCard);
                 //wait for result
                 Step();
-            }
+            }*/
         }
     }
 }

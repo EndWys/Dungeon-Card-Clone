@@ -24,4 +24,9 @@ namespace Assets.GameCore.GamePlay
             _gameCard = card;
         }
     }
+    //temporaty Class
+    public class GameCardBase : CachedMonoBehaviour
+    {
+
+    }
 }
