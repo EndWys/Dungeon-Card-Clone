@@ -1,5 +1,7 @@
+using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
+using Assets.GameCore.GamePlay.Cards.ItemsCards.Coin;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using VContainer;
 
@@ -7,34 +9,36 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
 {
     public class CardsPool
     {
-        private List<CardsPoolContainerBase> _poolContainers;
+        private Dictionary<Type, DefaultCardsPoolContainer> _poolContainers;
 
         [Inject]
         public CardsPool()
         {
-            _poolContainers = BuildPoolContainerList().ToList();
+            _poolContainers = BuildPoolContainerList();
             Initialize();
         }
 
-        private IEnumerable<CardsPoolContainerBase> BuildPoolContainerList()
+        private Dictionary<Type, DefaultCardsPoolContainer> BuildPoolContainerList()
         {
-            //yield return new CoinsPoolContainer();
-            //yield return new MobsPoolContainer();
-            //yield return new PotionPoolContainer();
-            yield return null;
+            return new()
+            {
+
+                { typeof(CoinCardController), new DefaultCardsPoolContainer() }
+
+            };
         }
 
         private void Initialize()
         {
-            foreach(var container in _poolContainers)
+            foreach (var container in _poolContainers)
             {
-                container.Initialize();
+                container.Value.Initialize();
             }
         }
 
-        /*public GameCardBase GetRandomCard(Transform parent)
+        public GameCardView CollectCard(Type type, Transform parent)
         {
-            return _poolContainers[Random.Range(0, _poolContainers.Count)].CollectCard(parent);
-        }*/
+            return _poolContainers[type].CollectCard(parent);
+        }
     }
 }
