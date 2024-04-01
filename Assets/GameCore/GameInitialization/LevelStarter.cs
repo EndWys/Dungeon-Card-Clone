@@ -1,4 +1,5 @@
 using Assets.GameCore.GamePlay;
+using Assets.GameCore.GamePlay.GameField;
 using VContainer;
 using VContainer.Unity;
 
@@ -6,17 +7,20 @@ namespace Assets.GameCore.GameInitialization
 {
     public class LevelStarter : IStartable
     {
-        private IInitializableField _gameField;
+        private IInitializableField _fieldInitializer;
+        private GameFieldController _fieldController;
 
         [Inject]
-        public LevelStarter(IInitializableField gameField)
+        public LevelStarter(IInitializableField fieldInitialazer, GameFieldController gameFieldController)
         {
-            _gameField = gameField;
+            _fieldInitializer = fieldInitialazer;
+            _fieldController = gameFieldController;
         }
 
         public void Start()
         {
-            _gameField.InitializeField();
+            _fieldInitializer.InitializeField();
+            _fieldController.Init();
         }
     }
 }

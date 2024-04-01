@@ -1,5 +1,5 @@
-using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
+using Assets.GameCore.GamePlay.GameField;
 using Assets.GameCore.Utilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,57 +8,26 @@ using VContainer;
 
 namespace Assets.GameCore.GamePlay
 {
-    public interface IInitializableField
-    {
-        void InitializeField();
-    }
-
     public interface IParentCardField
     {
         void MoveCard(Vector2Int target, Vector2Int origin);
     }
-    public class GameField : IParentCardField, IInitializableField
+    public class GameFieldController : IParentCardField
     {
-        private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
-        private static int FIELD_SIZE => GameFildView.FIELD_SIZE;
-
         private CardsPool _cardsPool;
 
         private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
 
         [Inject]
-        private GameField(GameFildView fildView, CardsPool cardsPool)
+        private GameFieldController(CardsPool cardsPool, IInitializableField fieldInitializer)
         {
             _cardsPool = cardsPool;
-            _cardSlots = fildView.BuildFieldMap();
+            _cardSlots = fieldInitializer.GetField();
         }
 
-        public void InitializeField()
+        public void Init()
         {
-            for (int y = 0; y < FIELD_SIZE; y++)
-            {
-                for (int x = 0; x < FIELD_SIZE; x++)
-                {
-                    var coord = new Vector2Int(x, y);
-
-                    GameCardSlot slot = _cardSlots[coord];
-
-                    GameCardController card = null;
-
-                     if (coord != PLAYER_SPAWN)
-                     {
-                        //Factory must create card
-                        //then pool must to choose prefab for this card
-                     }
-                     else
-                     {
-                        //
-                     } 
-
-                     slot.SetCard(card);
-                     card.Init();
-                }
-            }
+            //Some Logic on init
         }
 
         public void MoveCard(Vector2Int target, Vector2Int origin)
