@@ -51,8 +51,8 @@ namespace Assets.GameCore.GamePlay.GameField
                         //
                     }
 
-                    slot.SetCard(card);
-                    card.Init();
+                    //slot.SetCard(card);
+                    //card.Init();
                 }
             }
         }

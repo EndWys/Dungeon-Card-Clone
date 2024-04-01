@@ -12,7 +12,7 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
 
     public class DefaultCardsPoolContainer : CardsPoolContainerBase
     {
-        Pooling<GameCardView> _pool;
+        Pooling<GameCardView> _pool = new Pooling<GameCardView>();
 
         public override void Initialize()
         {
