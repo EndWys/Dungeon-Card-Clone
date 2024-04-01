@@ -40,5 +40,10 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
         {
             return _poolContainers[type].CollectCard(parent);
         }
+
+        public void Release(Type type, GameCardView card)
+        {
+            _poolContainers[type].ReleaseCard(card);
+        }
     }
 }

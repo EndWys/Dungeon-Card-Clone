@@ -1,7 +1,6 @@
-using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.Utilities.Objects;
-using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace Assets.GameCore.GamePlay
 {
@@ -10,8 +9,10 @@ namespace Assets.GameCore.GamePlay
         private GameCardController _card;
         public GameCardController Card => _card;
 
-        private void RemoveCard()
+        private async UniTask RemoveCard()
         {
+            await _card.HideView();
+            _card.Kill();
             _card = null;
         }
 
@@ -20,13 +21,13 @@ namespace Assets.GameCore.GamePlay
             _card = card;
         }
 
-        public async void MoveCard(GameCardSlot otherSlot)
+        public async UniTask MoveCard(GameCardSlot otherSlot)
         {
             otherSlot.SetCard(_card);
             await _card.MoveView(otherSlot.CachedTransform.position);
             _card.SetParent(otherSlot.CachedTransform);
             otherSlot.SetCard(_card);
-            RemoveCard();
+            await RemoveCard();
             
         }
 

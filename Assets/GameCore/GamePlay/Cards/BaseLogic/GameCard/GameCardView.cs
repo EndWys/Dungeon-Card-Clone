@@ -2,6 +2,7 @@ using Assets.GameCore.PoolingSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,6 +11,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
     public class GameCardView : PoolingObject, IPointerClickHandler
     {
         public event Action OnCardTap;
+        public event Action OnKill;
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -31,6 +33,11 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
         {
             await CachedTransform.DOScale(Vector3.zero, duration).AsyncWaitForCompletion().AsUniTask();
             await UniTask.Yield();
+        }
+
+        public void Kill()
+        {
+            OnKill?.Invoke();
         }
     }
 }

@@ -33,9 +33,9 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
             _parentCardField.MoveCard(target, _coord);
         }
 
-        public async UniTask AsyncKill()
+        public void Kill()
         {
-            await HideView();
+            _gameCardView.Kill();
         }
 
         public void SetParent(Transform parent)

@@ -1,6 +1,8 @@
+using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.GameField;
 using Assets.GameCore.Utilities;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,25 +16,25 @@ namespace Assets.GameCore.GamePlay
     }
     public class GameFieldController : IParentCardField
     {
-        private CardsPool _cardsPool;
+        private CardsSpawner _cardsSpawner;
 
         private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
 
         [Inject]
-        private GameFieldController(CardsPool cardsPool, IInitializableField fieldInitializer)
+        private GameFieldController(CardsSpawner cardsSpawner, IInitializableField fieldInitializer)
         {
-            _cardsPool = cardsPool;
+            _cardsSpawner = cardsSpawner;
             _cardSlots = fieldInitializer.GetField();
         }
 
         public void Init()
         {
-            //Some Logic on init
+            _cardsSpawner.Init(this);
         }
 
         public void MoveCard(Vector2Int target, Vector2Int origin)
         {
-            _cardSlots[origin].MoveCard(_cardSlots[target]);
+            _cardSlots[origin].MoveCard(_cardSlots[target]).Forget();
         }
 
         private void Step()
