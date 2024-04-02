@@ -1071,6 +1071,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCard
       objectReference: {fileID: 0}
+    - target: {fileID: 8822032956520037494, guid: 0c0770ff8b3446a4290bd9aa33cde13f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1081,17 +1085,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 987672874142986333, guid: 0c0770ff8b3446a4290bd9aa33cde13f, type: 3}
   m_PrefabInstance: {fileID: 1930669875}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1930669877 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6243989037755615258, guid: 0c0770ff8b3446a4290bd9aa33cde13f, type: 3}
-  m_PrefabInstance: {fileID: 1930669875}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4b0ebc7998ca348aaf6e272ff6eda5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2038498500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,7 +1182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ad4fa7e588bdd4ead17d47322804af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCard: {fileID: 1930669877}
   _slots:
   - {fileID: 581616254}
   - {fileID: 1899189819}

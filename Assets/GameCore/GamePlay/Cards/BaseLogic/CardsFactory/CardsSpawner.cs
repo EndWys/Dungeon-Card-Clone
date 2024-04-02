@@ -12,7 +12,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
         private CardsPool _cardsPool;
         private IParentCardField _parentCardField;
 
-        List<CardsFactoryBase> _cardsFactories;
+        List<CardsFactoryBase> _cardsFactories = new();
 
         [Inject]
         public CardsSpawner(CardsPool cardsPool)

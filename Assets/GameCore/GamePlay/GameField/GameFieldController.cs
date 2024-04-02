@@ -1,5 +1,4 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
-using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.GameField;
 using Assets.GameCore.Utilities;
 using Cysharp.Threading.Tasks;
@@ -25,11 +24,6 @@ namespace Assets.GameCore.GamePlay
         {
             _cardsSpawner = cardsSpawner;
             _cardSlots = fieldInitializer.GetField();
-        }
-
-        public void Init()
-        {
-            _cardsSpawner.Init(this);
         }
 
         public void MoveCard(Vector2Int target, Vector2Int origin)

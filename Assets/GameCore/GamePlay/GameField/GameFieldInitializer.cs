@@ -1,8 +1,10 @@
 using Assets.GameCore.GamePlay;
+using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 namespace Assets.GameCore.GamePlay.GameField
 {
@@ -19,8 +21,12 @@ namespace Assets.GameCore.GamePlay.GameField
 
         private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
 
-        public GameFieldInitializer(GameFildView fieldView)
+        private CardsSpawner _cardsSpawner;
+
+        [Inject]
+        public GameFieldInitializer(CardsSpawner cardsSpawner, GameFildView fieldView)
         {
+            _cardsSpawner = cardsSpawner;
             _cardSlots = fieldView.BuildFieldMap();
         }
 
@@ -39,7 +45,7 @@ namespace Assets.GameCore.GamePlay.GameField
 
                     GameCardSlot slot = _cardSlots[coord];
 
-                    GameCardController card = null;
+                    GameCardController card = _cardsSpawner.SpawnCard(slot.CachedTransform);
 
                     if (coord != PLAYER_SPAWN)
                     {
