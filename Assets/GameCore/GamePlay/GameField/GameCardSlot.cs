@@ -6,8 +6,8 @@ namespace Assets.GameCore.GamePlay
 {
     public class GameCardSlot : CachedMonoBehaviour
     {
-        private GameCardController _card;
-        public GameCardController Card => _card;
+        private IOnFieldCard _card;
+        public IOnFieldCard Card => _card;
 
         private async UniTask RemoveCard()
         {
@@ -16,7 +16,7 @@ namespace Assets.GameCore.GamePlay
             _card = null;
         }
 
-        public void SetCard(GameCardController card)
+        public void SetCard(IOnFieldCard card)
         {
             _card = card;
         }

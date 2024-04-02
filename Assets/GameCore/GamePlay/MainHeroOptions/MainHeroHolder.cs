@@ -2,6 +2,7 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys;
 using System;
+using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.MainHeroOptions
 {
@@ -9,7 +10,14 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
     {
         private static MainHeroHolder _instance;
 
-        public static MainHeroHolder Instance => _instance;
+        public static MainHeroHolder Instance { 
+            get {
+                if (_instance == null)
+                    _instance = new MainHeroHolder();
+
+                return _instance;
+            }
+        }
 
         private PlayerGameCardController _playerCard;
 
@@ -20,17 +28,22 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
         public void Init(PlayerGameCardController playerCard)
         {
             _playerCard = playerCard;
-            _instance = this;
+            _heroActionStratagy = new DefaultHeroActionStratagy();
 
             isInitialized = true;
+        }
 
-            _heroActionStratagy = new DefaultHeroActionStratagy();
+        private void CrateInstance()
+        {
+            _instance = this;
         }
 
         public void OnCardTap(GameCardController card)
         {
+            Debug.Log("Tap - choose initialization");
             if (!isInitialized) return;
 
+            Debug.Log("Using stratagy");
             _heroActionStratagy.UseStratagy(_playerCard, card);
 
             //Validate action

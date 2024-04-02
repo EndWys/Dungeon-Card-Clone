@@ -32,7 +32,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
             yield return new CoinsCardFactory(_cardsPool, _parentCardField);
         }
 
-        public GameCardController SpawnCard(Transform parent)
+        public GameCardController SpawnRandomCard(Transform parent)
         {
             var factory = _cardsFactories[Random.Range(0, _cardsFactories.Count)];
 

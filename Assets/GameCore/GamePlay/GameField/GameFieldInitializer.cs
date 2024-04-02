@@ -45,7 +45,7 @@ namespace Assets.GameCore.GamePlay.GameField
 
                     GameCardSlot slot = _cardSlots[coord];
 
-                    GameCardController card = _cardsSpawner.SpawnCard(slot.CachedTransform);
+                    GameCardController card = _cardsSpawner.SpawnRandomCard(slot.CachedTransform);
 
                     if (coord != PLAYER_SPAWN)
                     {
@@ -57,8 +57,8 @@ namespace Assets.GameCore.GamePlay.GameField
                         //
                     }
 
-                    //slot.SetCard(card);
-                    //card.Init();
+                    slot.SetCard(card);
+                    card.Init();
                 }
             }
         }

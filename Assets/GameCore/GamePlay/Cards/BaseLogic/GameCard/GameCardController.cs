@@ -4,7 +4,16 @@ using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 {
-    public abstract class GameCardController
+    public interface IOnFieldCard
+    {
+        UniTask MoveView(Vector3 target);
+        UniTask HideView();
+        void SetParent(Transform parent);
+
+        void Kill();
+    }
+
+    public abstract class GameCardController : IOnFieldCard
     {
         private IParentCardField _parentCardField;
         private GameCardView _gameCardView;
