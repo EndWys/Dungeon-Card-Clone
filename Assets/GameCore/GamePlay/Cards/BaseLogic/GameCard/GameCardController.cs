@@ -8,6 +8,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
     {
         UniTask MoveView(Vector3 target);
         UniTask HideView();
+        void SetCoord(Vector2Int coord);
         void SetParent(Transform parent);
 
         void Kill();
@@ -25,6 +26,11 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
         {
             _parentCardField = parentCardField;
             _gameCardView = gameCardView;
+        }
+
+        public void SetCoord(Vector2Int coord)
+        {
+            _coord = coord;
         }
 
         public void Init()

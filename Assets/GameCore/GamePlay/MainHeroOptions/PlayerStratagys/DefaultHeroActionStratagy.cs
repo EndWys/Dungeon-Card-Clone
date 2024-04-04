@@ -7,7 +7,7 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
 {
     public class DefaultHeroActionStratagy : IHeroActionStratagy
     {
-        public void UseStratagy(PlayerGameCardController playerCard, GameCardController targetCard)
+        public void UseStratagy(PlayerCardController playerCard, GameCardController targetCard)
         {
             if (targetCard is ICollectableCard collectable)
             {

@@ -1,6 +1,7 @@
 using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
+using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,20 +46,20 @@ namespace Assets.GameCore.GamePlay.GameField
 
                     GameCardSlot slot = _cardSlots[coord];
 
-                    GameCardController card = _cardsSpawner.SpawnRandomCard(slot.CachedTransform);
+                    GameCardController card;
 
                     if (coord != PLAYER_SPAWN)
                     {
-                        //Factory must create card
-                        //then pool must to choose prefab for this card
+                        card = _cardsSpawner.SpawnRandomCard(slot.CachedTransform);
                     }
                     else
                     {
-                        //
+                        card = _cardsSpawner.SpawnPlayerCard(slot.CachedTransform);
                     }
 
                     slot.SetCard(card);
                     card.Init();
+                    card.SetCoord(coord);
                 }
             }
         }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539978cc3c6854e41a0a1a52c00a9519, type: 3}
   m_Name: CardsDatabase
   m_EditorClassIdentifier: 
+  PlayerCard: {fileID: 8822032956520037494, guid: 0c0770ff8b3446a4290bd9aa33cde13f, type: 3}
   MobCard: {fileID: 1253508310576253656, guid: 02d0b3e31719af8468e41b7c9c1507c3, type: 3}
   CoinCard: {fileID: 7959322928678619685, guid: 8fbd8e6736f67af4a8634bf2a090a19b, type: 3}
   PotionnCard: {fileID: 6469814492995371742, guid: 5f8080e69ec6688449b9b8e6302d9cdf, type: 3}

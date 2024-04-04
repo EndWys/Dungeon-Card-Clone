@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.Coin;
+using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,9 +23,8 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
         {
             return new()
             {
-
-                { typeof(CoinCardController), new DefaultCardsPoolContainer() }
-
+                { typeof(CoinCardController), new CoinCardPoolContainer() },
+                { typeof(PlayerCardController), new PlayerCardPoolContainer() },
             };
         }
 

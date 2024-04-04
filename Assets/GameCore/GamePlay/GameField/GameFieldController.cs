@@ -28,7 +28,10 @@ namespace Assets.GameCore.GamePlay
 
         public void MoveCard(Vector2Int target, Vector2Int origin)
         {
-            _cardSlots[origin].MoveCard(_cardSlots[target]).Forget();
+            var slot = _cardSlots[origin];
+            var targetSlot = _cardSlots[target];
+            slot.Card.SetCoord(target);
+            slot.MoveCard(targetSlot).Forget();
         }
 
         private void Step()

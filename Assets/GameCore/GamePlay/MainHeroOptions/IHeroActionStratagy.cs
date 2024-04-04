@@ -5,6 +5,6 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
 {
     public interface IHeroActionStratagy
     {
-        void UseStratagy(PlayerGameCardController playerCard, GameCardController targetCard); 
+        void UseStratagy(PlayerCardController playerCard, GameCardController targetCard); 
     }
 }

@@ -10,14 +10,16 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
         public abstract GameCardView CollectCard(Transform parent);
     }
 
-    public class DefaultCardsPoolContainer : CardsPoolContainerBase
+    public abstract class DefaultCardsPoolContainer : CardsPoolContainerBase
     {
-        Pooling<GameCardView> _pool = new Pooling<GameCardView>();
+        protected abstract GameObject _prefab { get; }
+
+        private Pooling<GameCardView> _pool = new Pooling<GameCardView>();
 
         public override void Initialize()
         {
             _pool.CreateMoreIfNeeded = true;
-            _pool.Initialize(CardsDatabase.Instance.CoinCard, null);
+            _pool.Initialize(_prefab, null);
         }
 
         public override GameCardView CollectCard(Transform parent)

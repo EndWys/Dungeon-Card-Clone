@@ -19,13 +19,13 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             }
         }
 
-        private PlayerGameCardController _playerCard;
+        private PlayerCardController _playerCard;
 
         private IHeroActionStratagy _heroActionStratagy;
 
         private bool isInitialized = false;
 
-        public void Init(PlayerGameCardController playerCard)
+        public void Init(PlayerCardController playerCard)
         {
             _playerCard = playerCard;
             _heroActionStratagy = new DefaultHeroActionStratagy();

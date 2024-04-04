@@ -9,7 +9,7 @@ namespace Assets.GameCore.GamePlay
         private IOnFieldCard _card;
         public IOnFieldCard Card => _card;
 
-        private async UniTask RemoveCard()
+        public async UniTask RemoveCard()
         {
             await _card.HideView();
             _card.Kill();
@@ -23,12 +23,14 @@ namespace Assets.GameCore.GamePlay
 
         public async UniTask MoveCard(GameCardSlot otherSlot)
         {
-            otherSlot.SetCard(_card);
+            await otherSlot.RemoveCard();
             await _card.MoveView(otherSlot.CachedTransform.position);
-            _card.SetParent(otherSlot.CachedTransform);
+
             otherSlot.SetCard(_card);
-            await RemoveCard();
-            
+            _card.SetParent(otherSlot.CachedTransform);
+            _card = null;
+
+
         }
 
         public async void SwapCards(GameCardSlot otherSlot)

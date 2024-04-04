@@ -4,9 +4,9 @@ using Assets.GameCore.GamePlay.MainHeroOptions;
 
 namespace Assets.GameCore.GamePlay.Cards.PlayerCard
 {
-    public class PlayerGameCardController : GameCardController, IDamageAbleCard
+    public class PlayerCardController : GameCardController, IDamageAbleCard
     {
-        public PlayerGameCardController(IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
+        public PlayerCardController(IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
         {
             MainHeroHolder.Instance.Init(this);
         }
