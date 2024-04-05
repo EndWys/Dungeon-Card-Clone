@@ -2,7 +2,6 @@ using Assets.GameCore.PoolingSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -33,6 +32,21 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
         {
             await CachedTransform.DOScale(Vector3.zero, duration).AsyncWaitForCompletion().AsUniTask();
             await UniTask.Yield();
+        }
+
+        private async UniTask ShowView(float duration = 0.6F)
+        {
+            await CachedTransform.DOScale(Vector3.one, duration).AsyncWaitForCompletion().AsUniTask();
+            await UniTask.Yield();
+        }
+
+        public override void OnRelease()
+        {
+            base.OnRelease();
+            ShowView().Forget();
+
+            OnCardTap = null;
+            OnKill = null;
         }
 
         public void Kill()

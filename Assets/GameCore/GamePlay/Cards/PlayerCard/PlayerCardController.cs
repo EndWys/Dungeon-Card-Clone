@@ -15,5 +15,10 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
         {
             //Take damage logic
         }
+
+        public void StepDone()
+        {
+            _parentCardField.Step();
+        }
     }
 }

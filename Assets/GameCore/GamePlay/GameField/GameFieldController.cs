@@ -1,4 +1,5 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
+using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using Assets.GameCore.GamePlay.GameField;
 using Assets.GameCore.Utilities;
 using Cysharp.Threading.Tasks;
@@ -11,7 +12,9 @@ namespace Assets.GameCore.GamePlay
 {
     public interface IParentCardField
     {
-        void MoveCard(Vector2Int target, Vector2Int origin);
+        UniTask MoveCard(Vector2Int target, Vector2Int origin);
+
+        UniTask Step();
     }
     public class GameFieldController : IParentCardField
     {
@@ -26,15 +29,20 @@ namespace Assets.GameCore.GamePlay
             _cardSlots = fieldInitializer.GetField();
         }
 
-        public void MoveCard(Vector2Int target, Vector2Int origin)
+        public async UniTask MoveCard(Vector2Int target, Vector2Int origin)
         {
             var slot = _cardSlots[origin];
             var targetSlot = _cardSlots[target];
             slot.Card.SetCoord(target);
-            slot.MoveCard(targetSlot).Forget();
+            if(targetSlot == null)
+            {
+                Debug.LogError("Target slot is null");
+                return;
+            }
+            await slot.MoveCard(targetSlot);
         }
 
-        private void Step()
+        public async UniTask Step()
         {
             if (TryToGetEmptySlot(out Vector2Int coordToFill))
             {
@@ -45,16 +53,18 @@ namespace Assets.GameCore.GamePlay
                     if (_cardSlots.ContainsKey(slotCoord))
                     {
                         var slot = _cardSlots[slotCoord];
-                       /* if (slot.GameCard != null && slot.GameCard != _playerCard)
+                        if (slot.Card != null && !(slot.Card is PlayerCardController))
                         {
                             //Move 1 card to empty slot
-                            slot.GameCard.Move(coordToFill);
+                            await slot.Card.Move(coordToFill);
+
                             //Then spawn new card on it's place
-                            GameCardBase card = _cardsPool.GetRandomCard(slot.CachedTransform);
-                            card.Init(slotCoord, this);
+                            var card = _cardsSpawner.SpawnRandomCard(slot.CachedTransform);
                             slot.SetCard(card);
+                            card.Init();
+                            card.SetCoord(slotCoord);
                             return;
-                        } */
+                        } 
                     }
                 }
             }

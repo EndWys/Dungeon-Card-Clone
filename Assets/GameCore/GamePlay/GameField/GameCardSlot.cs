@@ -11,6 +11,8 @@ namespace Assets.GameCore.GamePlay
 
         public async UniTask RemoveCard()
         {
+            if (_card == null) return;
+
             await _card.HideView();
             _card.Kill();
             _card = null;
@@ -23,6 +25,8 @@ namespace Assets.GameCore.GamePlay
 
         public async UniTask MoveCard(GameCardSlot otherSlot)
         {
+            if (_card == null) return;
+
             await otherSlot.RemoveCard();
             await _card.MoveView(otherSlot.CachedTransform.position);
 

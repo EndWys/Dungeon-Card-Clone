@@ -1,6 +1,7 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys;
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -33,18 +34,13 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             isInitialized = true;
         }
 
-        private void CrateInstance()
-        {
-            _instance = this;
-        }
-
-        public void OnCardTap(GameCardController card)
+        public async UniTask OnCardTap(GameCardController card)
         {
             Debug.Log("Tap - choose initialization");
             if (!isInitialized) return;
 
             Debug.Log("Using stratagy");
-            _heroActionStratagy.UseStratagy(_playerCard, card);
+            await _heroActionStratagy.UseStratagy(_playerCard, card);
 
             //Validate action
 
@@ -57,6 +53,8 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             //Пример: если у игрока мечь и у карты IWeaponTarget реализован, то вызывается метод IWeaponTarget.TakeHit()
             //Потом уже можем проверить на isDead єту карту и удалить ее с поля и поставить монетку на ее место.
             //Eckb же оружия нет то вызываем метод IMob.TakeHit() и т.д.
+
+            _playerCard.StepDone();
         }
 
         public void EquipStratagy(IHeroActionStratagy heroStratagy)

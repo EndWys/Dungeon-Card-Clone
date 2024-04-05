@@ -6,6 +6,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 {
     public interface IOnFieldCard
     {
+        UniTask Move(Vector2Int target);
         UniTask MoveView(Vector3 target);
         UniTask HideView();
         void SetCoord(Vector2Int coord);
@@ -16,7 +17,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 
     public abstract class GameCardController : IOnFieldCard
     {
-        private IParentCardField _parentCardField;
+        protected IParentCardField _parentCardField;
         private GameCardView _gameCardView;
 
         private Vector2Int _coord;
@@ -40,12 +41,12 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 
         public void CardTap()
         {
-            MainHeroHolder.Instance.OnCardTap(this);
+            MainHeroHolder.Instance.OnCardTap(this).Forget();
         }
 
-        public void Move(Vector2Int target)
+        public async UniTask Move(Vector2Int target)
         {
-            _parentCardField.MoveCard(target, _coord);
+            await _parentCardField.MoveCard(target, _coord);
         }
 
         public void Kill()
