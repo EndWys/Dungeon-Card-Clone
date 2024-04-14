@@ -1,27 +1,53 @@
-using Assets.GameCore.GamePlay.Cards.BaseLogic;
+using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.Utilities.Objects;
-using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace Assets.GameCore.GamePlay
 {
-    public interface IParentCardSlot
+    public class GameCardSlot : CachedMonoBehaviour
     {
+        private IOnFieldCard _card;
+        public IOnFieldCard Card => _card;
 
-    }
-
-    public class GameCardSlot : CachedMonoBehaviour, IParentCardSlot
-    {
-        private GameCardBase _gameCard;
-        public GameCardBase GameCard => _gameCard;
-
-        public void RemoveCard()
+        public async UniTask RemoveCard()
         {
-            _gameCard = null;
+            if (_card == null) return;
+
+            await _card.HideView();
+            _card.Kill();
+            _card = null;
         }
 
-        public void SetCard(GameCardBase card)
+        public void SetCard(IOnFieldCard card)
         {
-            _gameCard = card;
+            _card = card;
+        }
+
+        public async UniTask MoveCard(GameCardSlot otherSlot)
+        {
+            if (_card == null) return;
+
+            await otherSlot.RemoveCard();
+            await _card.MoveView(otherSlot.CachedTransform.position);
+
+            otherSlot.SetCard(_card);
+            _card.SetParent(otherSlot.CachedTransform);
+            _card = null;
+
+
+        }
+
+        public async void SwapCards(GameCardSlot otherSlot)
+        {
+            var otherCard = otherSlot.Card;
+
+            await _card.MoveView(otherSlot.CachedTransform.position);
+            _card.SetParent(otherSlot.CachedTransform);
+            otherSlot.SetCard(_card);
+
+            await otherCard.MoveView(CachedTransform.position);
+            otherCard.SetParent(CachedTransform);
+            SetCard(otherCard);
         }
     }
 }

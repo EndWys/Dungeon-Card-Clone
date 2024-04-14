@@ -11,6 +11,7 @@ public class CardsDatabase : ScriptableObject
         _instance = cardData;
     }
 
+    public GameObject PlayerCard;
     public GameObject MobCard;
     public GameObject CoinCard;
     public GameObject PotionnCard;

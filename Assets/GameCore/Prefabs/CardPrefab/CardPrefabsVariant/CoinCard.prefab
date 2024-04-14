@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 4610449554559045203}
   - component: {fileID: 1547852208747720714}
   - component: {fileID: 7526924615512240709}
-  - component: {fileID: 4282307501961055995}
+  - component: {fileID: 8983694493113403163}
   m_Layer: 5
   m_Name: CoinCard
   m_TagString: Untagged
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4282307501961055995
+--- !u!114 &8983694493113403163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -491,7 +491,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7959322928678619685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1316585769f2d3b468f38a250d1915e8, type: 3}
+  m_Script: {fileID: 11500000, guid: d30e2be2a75086847a2cc6420ed4ddd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onCardUI: {fileID: 4094421998107307258}

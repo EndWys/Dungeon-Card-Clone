@@ -1,5 +1,7 @@
 using Assets.GameCore.GamePlay;
+using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
+using Assets.GameCore.GamePlay.GameField;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,8 +14,10 @@ namespace Assets.GameCore.GameInitialization
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<CardsPool>(Lifetime.Singleton);
+            builder.Register<CardsSpawner>(Lifetime.Singleton);
             builder.RegisterComponent(_gameFieldView);
-            builder.Register<GameField>(Lifetime.Singleton).As<IInitializableField>();
+            builder.Register<GameFieldInitializer>(Lifetime.Singleton).As<IInitializableField>();
+            builder.Register<GameFieldController>(Lifetime.Singleton);
             builder.RegisterEntryPoint<LevelStarter>();
         }
     }
