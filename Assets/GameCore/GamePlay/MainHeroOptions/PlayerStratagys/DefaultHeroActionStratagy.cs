@@ -22,6 +22,7 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             else if (targetCard is IFightableCard fightable)
             {
                 fightable.Fight();
+                playerCard.TakeDamage(fightable.Power);
                 await playerCard.Move(targetCard.Coord);
             }
             else if (targetCard is IDefusableCard defusable)

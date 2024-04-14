@@ -9,16 +9,18 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces
 
     public interface IDamageAbleCard
     {
+        int Health { get; }
         void TakeDamage(int damage);
     }
 
-    public interface IHealableCard
+    public interface IHealableCard : IDamageAbleCard
     {
         void Heal();
     }
 
     public interface IFightableCard
     {
+        int Power { get; }
         void Fight();
     }
 

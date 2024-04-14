@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
+using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Coin
 {
@@ -14,6 +15,7 @@ namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Coin
         {
             //Add coin to player score
             //Then kill this card
+            Debug.Log("Coin collected");
         }
     }
 }
