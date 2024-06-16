@@ -19,10 +19,10 @@ public static class ResourcesLoading
 
     public static Task GetDataLoadingTask()
     {
-       
+
         UniTask uniTask = LoadCardlStorage();
         var task = uniTask.AsTask();
-        
+
         return task;
     }
 

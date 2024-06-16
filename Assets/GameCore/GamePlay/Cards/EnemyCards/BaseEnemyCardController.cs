@@ -22,7 +22,7 @@ public abstract class BaseEnemyCardController : GameCardController, IFightableCa
 
     public void TakeDamage(int damage)
     {
-        if(_health <= damage)
+        if (_health <= damage)
         {
             _health = 0;
             return;

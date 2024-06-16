@@ -58,16 +58,16 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
 
             return factory.CreateCard(parent);
         }
-        
+
         public T SpawnCardByType<T>(Transform parent) where T : GameCardController
         {
             var type = typeof(T);
 
             if (_cardsFactoriesMap.TryGetValue(type, out CardsFactoryBase factory))
             {
-               var card = factory.CreateCard(parent);
-               if (card is T tCard)
-                   return tCard;
+                var card = factory.CreateCard(parent);
+                if (card is T tCard)
+                    return tCard;
             }
 
             Debug.LogError("No such card type in the factories list");

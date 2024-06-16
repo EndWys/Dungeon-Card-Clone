@@ -18,7 +18,7 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
 
         public void TakeDamage(int damage)
         {
-            if(_health <= damage) 
+            if (_health <= damage)
             {
                 _health = 0;
                 Debug.Log("DEAD!!!");

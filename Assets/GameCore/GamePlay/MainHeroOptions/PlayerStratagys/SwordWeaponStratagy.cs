@@ -26,7 +26,7 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             }
             else if (targetCard is IDefusableCard defusable)
             {
-                Action<bool> OnFinish = delegate(bool success) 
+                Action<bool> OnFinish = delegate (bool success)
                 {
                     if (!success)
                     {

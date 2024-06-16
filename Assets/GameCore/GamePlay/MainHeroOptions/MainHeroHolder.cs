@@ -11,8 +11,10 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
     {
         private static MainHeroHolder _instance;
 
-        public static MainHeroHolder Instance { 
-            get {
+        public static MainHeroHolder Instance
+        {
+            get
+            {
                 if (_instance == null)
                     _instance = new MainHeroHolder();
 

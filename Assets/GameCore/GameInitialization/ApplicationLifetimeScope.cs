@@ -1,7 +1,7 @@
 using Assets.GameCore.Utilities;
 using Cysharp.Threading.Tasks;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
