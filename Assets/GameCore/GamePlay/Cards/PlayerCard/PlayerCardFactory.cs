@@ -10,16 +10,16 @@ public class PlayerCardFactory : CardsFactoryBase
     //Temporary constanta
     private const int HEALTH = 10;
 
-    public PlayerCardFactory(NewCardsPool cardsPool, IParentCardField parentCardField) : base(cardsPool, parentCardField)
+    public PlayerCardFactory(IParentCardField parentCardField) : base(parentCardField)
     {
     }
 
-    protected override ICardsPoolContainer Pool => _cardsPool.PlayerCardPoolContainer;
+    protected override GameObject _cardPrefab => _database.PlayerCard;
 
     public override GameCardController CreateCard(Transform parent)
     {
-        GameCardView gameCardView = Pool.CollectCard(parent);
-        gameCardView.OnKill += () => Pool.ReleaseCard(gameCardView);
+        GameCardView gameCardView = _pool.CollectCard(parent);
+        gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
         return new PlayerCardController(HEALTH, _parentCardField, gameCardView);
     }

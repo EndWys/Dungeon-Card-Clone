@@ -7,16 +7,16 @@ using UnityEngine;
 
 public class CoinsCardFactory : CardsFactoryBase
 {
-    public CoinsCardFactory(NewCardsPool cardsPool, IParentCardField parentCardField) : base(cardsPool, parentCardField)
+    public CoinsCardFactory(IParentCardField parentCardField) : base(parentCardField)
     {
     }
 
-    protected override ICardsPoolContainer Pool => _cardsPool.CoinCardPoolContainer;
+    protected override GameObject _cardPrefab => _database.CoinCard;
 
     public override GameCardController CreateCard(Transform parent)
     {
-        GameCardView gameCardView = Pool.CollectCard(parent);
-        gameCardView.OnKill += () => Pool.ReleaseCard(gameCardView);
+        GameCardView gameCardView = _pool.CollectCard(parent);
+        gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
         return new CoinCardController(_parentCardField, gameCardView);
     }

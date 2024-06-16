@@ -14,8 +14,6 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
 {
     public class CardsSpawner
     {
-        private NewCardsPool _cardsPool;
-        private IParentCardField _parentCardField;
 
         private Dictionary<Type, CardsFactoryBase> _cardsFactoriesMap;
         private IReadOnlyList<CardsFactoryBase> _cardsFactoriesList => _cardsFactoriesMap.Values.ToList();
@@ -23,31 +21,18 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
         private PlayerCardFactory _playerCardFactory;
 
         [Inject]
-        public CardsSpawner(NewCardsPool cardsPool)
-        {
-            _cardsPool = cardsPool;
-        }
+        public CardsSpawner() { }
 
         public void Init(IParentCardField parentCardField)
         {
-            _parentCardField = parentCardField;
+            _playerCardFactory = new PlayerCardFactory(parentCardField);
 
-            _playerCardFactory = new PlayerCardFactory(_cardsPool, _parentCardField);
-            _cardsFactoriesMap = BuildFactoriesMap();
-        }
-
-        private Dictionary<Type, CardsFactoryBase> BuildFactoriesMap()
-        {
-            var dic = new Dictionary<Type, CardsFactoryBase>();
-
-            dic = new()
+            _cardsFactoriesMap = new()
             {
-                { typeof(CoinCardController), new CoinsCardFactory(_cardsPool, _parentCardField) },
-                { typeof(SkeletCardController), new SkeletCardFactory(_cardsPool, _parentCardField) },
-                { typeof(ZombieCardController), new ZombieCardFactory(_cardsPool, _parentCardField) },
+                { typeof(CoinCardController), new CoinsCardFactory(parentCardField) },
+                { typeof(SkeletCardController), new SkeletCardFactory(parentCardField) },
+                { typeof(ZombieCardController), new ZombieCardFactory(parentCardField) },
             };
-
-            return dic;
         }
 
         public GameCardController SpawnRandomCard(Transform parent)

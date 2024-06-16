@@ -18,15 +18,16 @@ namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Zombie
         //Temporary constanta
         private const int HEALTH = 2;
 
-        public ZombieCardFactory(NewCardsPool cardsPool, IParentCardField parentCardField) : base(cardsPool, parentCardField)
+        public ZombieCardFactory(IParentCardField parentCardField) : base(parentCardField)
         {
         }
-        protected override ICardsPoolContainer Pool => _cardsPool.ZombieCardPoolContainer;
+
+        protected override GameObject _cardPrefab => _database.ZombieCard;
 
         public override GameCardController CreateCard(Transform parent)
         {
-            GameCardView gameCardView = Pool.CollectCard(parent);
-            gameCardView.OnKill += () => Pool.ReleaseCard(gameCardView);
+            GameCardView gameCardView = _pool.CollectCard(parent);
+            gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
             return new ZombieCardController(HEALTH, _parentCardField, gameCardView);
         }

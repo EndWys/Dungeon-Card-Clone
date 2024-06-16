@@ -10,16 +10,16 @@ namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet
         //Temporary constanta
         private const int HEALTH = 2;
 
-        public SkeletCardFactory(NewCardsPool cardsPool, IParentCardField parentCardField) : base(cardsPool, parentCardField)
+        public SkeletCardFactory(IParentCardField parentCardField) : base(parentCardField)
         {
         }
 
-        protected override ICardsPoolContainer Pool => _cardsPool.SkeletCardPoolContainer;
+        protected override GameObject _cardPrefab => _database.SkeletCard;
 
         public override GameCardController CreateCard(Transform parent)
         {
-            GameCardView gameCardView = Pool.CollectCard(parent);
-            gameCardView.OnKill += () => Pool.ReleaseCard(gameCardView);
+            GameCardView gameCardView = _pool.CollectCard(parent);
+            gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
             return new SkeletCardController(HEALTH, _parentCardField, gameCardView);
         }
