@@ -18,6 +18,8 @@ public class CoinsCardFactory : CardsFactoryBase
         GameCardView gameCardView = _cardsPool.CollectCard(type, parent);
         gameCardView.OnKill += () => _cardsPool.Release(type, gameCardView);
 
+        gameCardView.Init();
+
         return new CoinCardController(_parentCardField, gameCardView);
     }
 }

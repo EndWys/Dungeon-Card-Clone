@@ -5,10 +5,13 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 public abstract class BaseEnemyCardController : GameCardController, IFightableCard, IDamageAbleCard
 {
     private int _health;
+    private string _healthString => _health.ToString();
 
     protected BaseEnemyCardController(int health, IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
     {
         _health = health;
+
+        _gameCardView.OnCardUI.SetCardValue(_healthString);
     }
 
     public int Power => _health;
@@ -17,17 +20,16 @@ public abstract class BaseEnemyCardController : GameCardController, IFightableCa
 
     public void Fight()
     {
-        _health = 0;
+        TakeDamage(_health);
     }
 
     public void TakeDamage(int damage)
     {
         if (_health <= damage)
-        {
             _health = 0;
-            return;
-        }
+        else
+            _health -= damage;
 
-        _health -= damage;
+        _gameCardView.OnCardUI.SetCardValue(_healthString);
     }
 }

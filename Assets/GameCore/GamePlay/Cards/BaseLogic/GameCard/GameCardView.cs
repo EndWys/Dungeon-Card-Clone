@@ -9,8 +9,17 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 {
     public class GameCardView : PoolingObject, IPointerClickHandler
     {
+        [SerializeField] private OnCardUI _cardUI;
+
+        public OnCardUI OnCardUI => _cardUI;
+
         public event Action OnCardTap;
         public event Action OnKill;
+
+        public void Init()
+        {
+
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {

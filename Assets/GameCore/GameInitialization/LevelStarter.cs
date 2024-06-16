@@ -9,6 +9,7 @@ namespace Assets.GameCore.GameInitialization
     public class LevelStarter : IStartable
     {
         private IInitializableField _fieldInitializer;
+        //private IDisposeableField _fieldDisposer;
         private GameFieldController _fieldController;
         private CardsSpawner _cardsSpawner;
 
@@ -24,6 +25,7 @@ namespace Assets.GameCore.GameInitialization
         {
             _cardsSpawner.Init(_fieldController);
             _fieldInitializer.InitializeField();
+            //_fieldDisposer.WaitingForDisposeField();
         }
     }
 }

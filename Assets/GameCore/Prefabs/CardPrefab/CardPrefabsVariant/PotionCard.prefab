@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30e2be2a75086847a2cc6420ed4ddd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardUI: {fileID: 7614397347365621838}
 --- !u!1 &6828459011931930220
 GameObject:
   m_ObjectHideFlags: 0
