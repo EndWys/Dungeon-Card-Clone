@@ -4,25 +4,25 @@ using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
 {
-    public abstract class CardsPoolContainerBase
+    public interface ICardsPoolContainer
     {
-        public abstract void Initialize();
-        public abstract GameCardView CollectCard(Transform parent);
+        public GameCardView CollectCard(Transform parent);
+
+        public void ReleaseCard(GameCardView card);
     }
 
-    public abstract class DefaultCardsPoolContainer : CardsPoolContainerBase
+    public class DefaultCardsPoolContainer : ICardsPoolContainer
     {
-        protected abstract GameObject _prefab { get; }
 
         private Pooling<GameCardView> _pool = new Pooling<GameCardView>();
 
-        public override void Initialize()
+        public void Initialize(GameObject prefab)
         {
             _pool.CreateMoreIfNeeded = true;
-            _pool.Initialize(_prefab, null);
+            _pool.Initialize(prefab, null);
         }
 
-        public override GameCardView CollectCard(Transform parent)
+        public GameCardView CollectCard(Transform parent)
         {
             return _pool.Collect(parent);
         }

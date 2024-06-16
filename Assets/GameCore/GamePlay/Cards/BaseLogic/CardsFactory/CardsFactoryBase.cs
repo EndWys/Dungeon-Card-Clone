@@ -8,9 +8,11 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
     {
         protected IParentCardField _parentCardField;
 
-        protected CardsPool _cardsPool;
+        protected NewCardsPool _cardsPool;
 
-        public CardsFactoryBase(CardsPool cardsPool, IParentCardField parentCardField)
+        protected abstract ICardsPoolContainer Pool {  get; }
+
+        public CardsFactoryBase(NewCardsPool cardsPool, IParentCardField parentCardField)
         {
             _cardsPool = cardsPool;
             _parentCardField = parentCardField;

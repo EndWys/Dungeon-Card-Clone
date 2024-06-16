@@ -10,44 +10,30 @@ using VContainer;
 
 namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
 {
-    public class CardsPool
+    public class NewCardsPool
     {
-        private Dictionary<Type, DefaultCardsPoolContainer> _poolContainers;
+        private CardsDatabase _database => CardsDatabase.Instance;
+
+
+        private DefaultCardsPoolContainer _playerCardPoolContainer = new DefaultCardsPoolContainer();
+        public ICardsPoolContainer PlayerCardPoolContainer => _playerCardPoolContainer;
+
+        public DefaultCardsPoolContainer _coinCardPoolContainer = new DefaultCardsPoolContainer();
+        public ICardsPoolContainer CoinCardPoolContainer => _coinCardPoolContainer;
+
+        public DefaultCardsPoolContainer _skeletCardPoolContainer = new DefaultCardsPoolContainer();
+        public ICardsPoolContainer SkeletCardPoolContainer => _skeletCardPoolContainer;
+
+        public DefaultCardsPoolContainer _zombieCardPoolContainer = new DefaultCardsPoolContainer();
+        public ICardsPoolContainer ZombieCardPoolContainer => _zombieCardPoolContainer;
 
         [Inject]
-        public CardsPool()
+        public NewCardsPool()
         {
-            _poolContainers = BuildPoolContainerList();
-            Initialize();
-        }
-
-        private Dictionary<Type, DefaultCardsPoolContainer> BuildPoolContainerList()
-        {
-            return new()
-            {
-                { typeof(CoinCardController), new CoinCardPoolContainer() },
-                { typeof(SkeletCardController), new SkeletCardPoolContainer() },
-                { typeof(ZombieCardController), new ZombieCardPoolContainer() },
-                { typeof(PlayerCardController), new PlayerCardPoolContainer() },
-            };
-        }
-
-        private void Initialize()
-        {
-            foreach (var container in _poolContainers)
-            {
-                container.Value.Initialize();
-            }
-        }
-
-        public GameCardView CollectCard(Type type, Transform parent)
-        {
-            return _poolContainers[type].CollectCard(parent);
-        }
-
-        public void Release(Type type, GameCardView card)
-        {
-            _poolContainers[type].ReleaseCard(card);
+            _playerCardPoolContainer.Initialize(_database.PlayerCard);
+            _coinCardPoolContainer.Initialize(_database.CoinCard);
+            _zombieCardPoolContainer.Initialize(_database.ZombieCard);
+            _skeletCardPoolContainer.Initialize(_database.SkeletCard);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
 {
     public class CardsSpawner
     {
-        private CardsPool _cardsPool;
+        private NewCardsPool _cardsPool;
         private IParentCardField _parentCardField;
 
         private Dictionary<Type, CardsFactoryBase> _cardsFactoriesMap;
@@ -23,7 +23,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
         private PlayerCardFactory _playerCardFactory;
 
         [Inject]
-        public CardsSpawner(CardsPool cardsPool)
+        public CardsSpawner(NewCardsPool cardsPool)
         {
             _cardsPool = cardsPool;
         }
@@ -42,7 +42,6 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
 
             dic = new()
             {
-                //{ typeof(PlayerCardController), new PlayerCardFactory(_cardsPool, _parentCardField) },
                 { typeof(CoinCardController), new CoinsCardFactory(_cardsPool, _parentCardField) },
                 { typeof(SkeletCardController), new SkeletCardFactory(_cardsPool, _parentCardField) },
                 { typeof(ZombieCardController), new ZombieCardFactory(_cardsPool, _parentCardField) },
