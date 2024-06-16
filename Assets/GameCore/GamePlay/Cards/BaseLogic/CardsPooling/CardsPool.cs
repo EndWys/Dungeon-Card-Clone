@@ -1,4 +1,6 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
+using Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet;
+using Assets.GameCore.GamePlay.Cards.EnemyCards.Zombie;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.Coin;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using System;
@@ -24,6 +26,8 @@ namespace Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling
             return new()
             {
                 { typeof(CoinCardController), new CoinCardPoolContainer() },
+                { typeof(SkeletCardController), new SkeletCardPoolContainer() },
+                { typeof(ZombieCardController), new ZombieCardPoolContainer() },
                 { typeof(PlayerCardController), new PlayerCardPoolContainer() },
             };
         }

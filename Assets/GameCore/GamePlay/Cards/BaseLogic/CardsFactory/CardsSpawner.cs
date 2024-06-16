@@ -1,11 +1,12 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
+using Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet;
+using Assets.GameCore.GamePlay.Cards.EnemyCards.Zombie;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.Coin;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using VContainer;
 
@@ -43,6 +44,8 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
             {
                 //{ typeof(PlayerCardController), new PlayerCardFactory(_cardsPool, _parentCardField) },
                 { typeof(CoinCardController), new CoinsCardFactory(_cardsPool, _parentCardField) },
+                { typeof(SkeletCardController), new SkeletCardFactory(_cardsPool, _parentCardField) },
+                { typeof(ZombieCardController), new ZombieCardFactory(_cardsPool, _parentCardField) },
             };
 
             return dic;

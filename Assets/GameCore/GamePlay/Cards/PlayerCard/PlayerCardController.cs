@@ -1,6 +1,7 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.MainHeroOptions;
+using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.PlayerCard
 {
@@ -9,14 +10,22 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
         private int _health = 0;
         public int Health => _health;
 
-        public PlayerCardController(IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
+        public PlayerCardController(int health, IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
         {
+            _health = health;
             MainHeroHolder.Instance.Init(this);
         }
 
         public void TakeDamage(int damage)
         {
-            //Take damage logic
+            if(_health <= damage) 
+            {
+                _health = 0;
+                Debug.Log("DEAD!!!");
+                return;
+            }
+
+            _health -= damage;
         }
 
         public void Heal()

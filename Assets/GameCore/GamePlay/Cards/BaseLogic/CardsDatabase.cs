@@ -12,7 +12,8 @@ public class CardsDatabase : ScriptableObject
     }
 
     public GameObject PlayerCard;
-    public GameObject MobCard;
+    public GameObject SkeletCard;
+    public GameObject ZombieCard;
     public GameObject CoinCard;
     public GameObject PotionnCard;
 }

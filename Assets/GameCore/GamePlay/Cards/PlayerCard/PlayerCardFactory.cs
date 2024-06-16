@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class PlayerCardFactory : CardsFactoryBase
 {
+    //Temporary constanta
+    private const int HEALTH = 10;
+
     public PlayerCardFactory(CardsPool cardsPool, IParentCardField parentCardField) : base(cardsPool, parentCardField)
     {
     }
@@ -18,6 +21,6 @@ public class PlayerCardFactory : CardsFactoryBase
         GameCardView gameCardView = _cardsPool.CollectCard(type, parent);
         gameCardView.OnKill += () => _cardsPool.Release(type, gameCardView);
 
-        return new PlayerCardController(_parentCardField, gameCardView);
+        return new PlayerCardController(HEALTH, _parentCardField, gameCardView);
     }
 }
