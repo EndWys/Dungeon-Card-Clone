@@ -1,6 +1,7 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.MainHeroOptions;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.PlayerCard
@@ -49,9 +50,9 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
             _gameCardView.OnCardUI.SetCardValue(_healthString);
         }
 
-        public void StepDone()
+        public async UniTask StepDone()
         {
-            _parentCardField.Step();
+            await _parentCardField.Step();
         }
     }
 }
