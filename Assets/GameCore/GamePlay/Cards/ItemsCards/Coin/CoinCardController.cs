@@ -6,8 +6,10 @@ namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Coin
 {
     public class CoinCardController : GameCardController, ICollectableCard
     {
-        public CoinCardController(IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
+        public CoinCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
         {
+            _gameCardView.OnCardUI.SetCardName(cardData.CardName);
+            _gameCardView.OnCardUI.SetCardValue(cardData.CardValueNumber.ToString());
 
         }
 

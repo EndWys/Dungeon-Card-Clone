@@ -7,9 +7,8 @@ namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Zombie
 {
     public class ZombieCardController : BaseEnemyCardController
     {
-        public ZombieCardController(int health, IParentCardField parentCardField, GameCardView gameCardView) : base(health, parentCardField, gameCardView)
+        public ZombieCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
         {
-
         }
     }
 
@@ -22,14 +21,14 @@ namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Zombie
         {
         }
 
-        protected override GameObject _cardPrefab => _database.ZombieCard;
+        protected override CardData _cardData => _database.ZombieCard;
 
         public override GameCardController CreateCard(Transform parent)
         {
             GameCardView gameCardView = _pool.CollectCard(parent);
             gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
-            return new ZombieCardController(HEALTH, _parentCardField, gameCardView);
+            return new ZombieCardController(_cardData, _parentCardField, gameCardView);
         }
     }
 }

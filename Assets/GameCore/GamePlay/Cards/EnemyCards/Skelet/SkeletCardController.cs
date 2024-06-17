@@ -4,9 +4,8 @@ namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet
 {
     public class SkeletCardController : BaseEnemyCardController
     {
-        public SkeletCardController(int health, IParentCardField parentCardField, GameCardView gameCardView) : base(health, parentCardField, gameCardView)
+        public SkeletCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
         {
-
         }
     }
 }

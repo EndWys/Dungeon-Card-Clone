@@ -14,14 +14,14 @@ namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet
         {
         }
 
-        protected override GameObject _cardPrefab => _database.SkeletCard;
+        protected override CardData _cardData => _database.SkeletCard;
 
         public override GameCardController CreateCard(Transform parent)
         {
             GameCardView gameCardView = _pool.CollectCard(parent);
             gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
-            return new SkeletCardController(HEALTH, _parentCardField, gameCardView);
+            return new SkeletCardController(_cardData, _parentCardField, gameCardView);
         }
     }
 }

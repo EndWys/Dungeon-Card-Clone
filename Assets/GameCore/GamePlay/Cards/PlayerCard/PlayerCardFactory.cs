@@ -14,13 +14,13 @@ public class PlayerCardFactory : CardsFactoryBase
     {
     }
 
-    protected override GameObject _cardPrefab => _database.PlayerCard;
+    protected override CardData _cardData => _database.PlayerCard;
 
     public override GameCardController CreateCard(Transform parent)
     {
         GameCardView gameCardView = _pool.CollectCard(parent);
         gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
-        return new PlayerCardController(HEALTH, _parentCardField, gameCardView);
+        return new PlayerCardController(_cardData, _parentCardField, gameCardView);
     }
 }

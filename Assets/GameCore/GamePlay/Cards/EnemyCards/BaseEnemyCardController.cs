@@ -7,10 +7,11 @@ public abstract class BaseEnemyCardController : GameCardController, IFightableCa
     private int _health;
     private string _healthString => _health.ToString();
 
-    protected BaseEnemyCardController(int health, IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
+    protected BaseEnemyCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
     {
-        _health = health;
+        _health = cardData.CardValueNumber;
 
+        _gameCardView.OnCardUI.SetCardName(cardData.CardName);
         _gameCardView.OnCardUI.SetCardValue(_healthString);
     }
 

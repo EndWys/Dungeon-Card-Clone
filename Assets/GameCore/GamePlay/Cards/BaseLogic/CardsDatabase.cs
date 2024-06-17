@@ -11,9 +11,9 @@ public class CardsDatabase : ScriptableObject
         _instance = cardData;
     }
 
-    public GameObject PlayerCard;
-    public GameObject SkeletCard;
-    public GameObject ZombieCard;
-    public GameObject CoinCard;
-    public GameObject PotionnCard;
+    public CardData PlayerCard;
+    public CardData SkeletCard;
+    public CardData ZombieCard;
+    public CardData CoinCard;
+    public CardData PotionnCard;
 }

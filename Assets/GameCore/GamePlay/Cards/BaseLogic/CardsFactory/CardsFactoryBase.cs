@@ -11,12 +11,12 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
         protected IParentCardField _parentCardField;
         protected CardsDatabase _database => CardsDatabase.Instance;
         protected ICardsPoolContainer _pool => _cardsPoolContainer;
-        protected abstract GameObject _cardPrefab { get; }
+        protected abstract CardData _cardData { get; }
 
         public CardsFactoryBase(IParentCardField parentCardField)
         {
             _parentCardField = parentCardField;
-            _cardsPoolContainer.Initialize(_cardPrefab);
+            _cardsPoolContainer.Initialize(_cardData.CardPrefab);
         }
 
         public abstract GameCardController CreateCard(Transform parent);

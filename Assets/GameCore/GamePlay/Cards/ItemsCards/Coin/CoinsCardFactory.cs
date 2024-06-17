@@ -11,13 +11,13 @@ public class CoinsCardFactory : CardsFactoryBase
     {
     }
 
-    protected override GameObject _cardPrefab => _database.CoinCard;
+    protected override CardData _cardData => _database.CoinCard;
 
     public override GameCardController CreateCard(Transform parent)
     {
         GameCardView gameCardView = _pool.CollectCard(parent);
         gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
-        return new CoinCardController(_parentCardField, gameCardView);
+        return new CoinCardController(_cardData, _parentCardField, gameCardView);
     }
 }

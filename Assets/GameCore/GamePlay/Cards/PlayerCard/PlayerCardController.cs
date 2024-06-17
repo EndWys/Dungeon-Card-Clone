@@ -11,9 +11,10 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
         private string _healthString => _health.ToString();
         public int Health => _health;
 
-        public PlayerCardController(int health, IParentCardField parentCardField, GameCardView gameCardView) : base(parentCardField, gameCardView)
+        public PlayerCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
         {
-            _health = health;
+            _health = cardData.CardValueNumber;
+            _gameCardView.OnCardUI.SetCardName(cardData.CardName);
             _gameCardView.OnCardUI.SetCardValue(_healthString);
             MainHeroHolder.Instance.Init(this);
         }
