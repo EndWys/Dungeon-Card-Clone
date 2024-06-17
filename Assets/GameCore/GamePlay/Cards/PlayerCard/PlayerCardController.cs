@@ -8,14 +8,18 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
     public class PlayerCardController : GameCardController, IHealableCard
     {
         private int _health = 0;
+        private int _maxHealth = 0;
         private string _healthString => _health.ToString();
         public int Health => _health;
 
         public PlayerCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
         {
             _health = cardData.CardValueNumber;
+            _maxHealth = _health;
+
             _gameCardView.OnCardUI.SetCardName(cardData.CardName);
             _gameCardView.OnCardUI.SetCardValue(_healthString);
+
             MainHeroHolder.Instance.Init(this);
         }
 
@@ -29,9 +33,20 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
             _gameCardView.OnCardUI.SetCardValue(_healthString);
         }
 
-        public void Heal()
+        public void Heal(int amount)
         {
-            //Heal logic
+            int newHealth = _health + amount;
+
+            if (newHealth > _maxHealth)
+            {
+                _health = _maxHealth;
+            }
+            else
+            {
+                _health = newHealth;
+            }
+
+            _gameCardView.OnCardUI.SetCardValue(_healthString);
         }
 
         public void StepDone()

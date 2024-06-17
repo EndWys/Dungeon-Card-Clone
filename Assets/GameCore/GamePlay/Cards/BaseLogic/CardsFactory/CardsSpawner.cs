@@ -3,6 +3,7 @@ using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet;
 using Assets.GameCore.GamePlay.Cards.EnemyCards.Zombie;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.Coin;
+using Assets.GameCore.GamePlay.Cards.ItemsCards.Potion;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
             _cardsFactoriesMap = new()
             {
                 { typeof(CoinCardController), new CoinsCardFactory(parentCardField) },
+                { typeof(PotionCardController), new PotionCardFactory(parentCardField) },
                 { typeof(SkeletCardController), new SkeletCardFactory(parentCardField) },
                 { typeof(ZombieCardController), new ZombieCardFactory(parentCardField) },
             };

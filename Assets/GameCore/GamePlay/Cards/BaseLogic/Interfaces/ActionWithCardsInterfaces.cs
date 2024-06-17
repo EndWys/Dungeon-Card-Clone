@@ -15,7 +15,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces
 
     public interface IHealableCard : IDamageAbleCard
     {
-        void Heal();
+        void Heal(int amount);
     }
 
     public interface IFightableCard

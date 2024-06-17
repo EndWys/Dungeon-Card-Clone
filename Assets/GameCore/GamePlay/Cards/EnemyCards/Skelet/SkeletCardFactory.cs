@@ -7,9 +7,6 @@ namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet
 {
     public class SkeletCardFactory : CardsFactoryBase
     {
-        //Temporary constanta
-        private const int HEALTH = 2;
-
         public SkeletCardFactory(IParentCardField parentCardField) : base(parentCardField)
         {
         }

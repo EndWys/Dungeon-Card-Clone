@@ -12,7 +12,7 @@ namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Coin
             _gameCardView.OnCardUI.SetCardValue(cardData.CardValueNumber.ToString());
 
         }
-
+        
         public void Collect()
         {
             //Add coin to player score

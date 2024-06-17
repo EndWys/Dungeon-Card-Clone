@@ -64,6 +64,11 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             _heroActionStratagy = heroStratagy;
         }
 
+        public void ConsumeItem(Action<PlayerCardController> action)
+        {
+            action.Invoke(_playerCard);
+        }
+
         public void Dispose()
         {
             _instance = null;
