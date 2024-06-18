@@ -4,6 +4,7 @@ using Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet;
 using Assets.GameCore.GamePlay.Cards.EnemyCards.Zombie;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.Coin;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.Potion;
+using Assets.GameCore.GamePlay.Cards.ItemsCards.WeaponsCard.Sword;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
             {
                 { typeof(CoinCardController), new CoinsCardFactory(parentCardField) },
                 { typeof(PotionCardController), new PotionCardFactory(parentCardField) },
+                { typeof(SwordCardController), new SwordCardFactory(parentCardField) },
                 { typeof(SkeletCardController), new SkeletCardFactory(parentCardField) },
                 { typeof(ZombieCardController), new ZombieCardFactory(parentCardField) },
             };

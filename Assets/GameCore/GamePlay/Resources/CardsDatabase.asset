@@ -32,3 +32,7 @@ MonoBehaviour:
     CardName: Potion
     CardValueNumber: 5
     CardPrefab: {fileID: 6469814492995371742, guid: 5f8080e69ec6688449b9b8e6302d9cdf, type: 3}
+  SwordCard:
+    CardName: Sword
+    CardValueNumber: 8
+    CardPrefab: {fileID: 6469814492995371742, guid: 796c00735fd9b48429b6f994b12db520, type: 3}

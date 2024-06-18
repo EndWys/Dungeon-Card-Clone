@@ -13,7 +13,7 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             if (targetCard is ICollectableCard collectable)
             {
                 collectable.Collect();
-                playerCard.Move(targetCard.Coord);
+                await playerCard.Move(targetCard.Coord);
             }
             else if (targetCard is IOpenableCard openable)
             {
@@ -21,19 +21,19 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             }
             else if (targetCard is ISwordTargetCard swordTarget)
             {
-                Action onKill = () => { playerCard.Move(targetCard.Coord); };
+                Action onKill = async () => { await playerCard.Move(targetCard.Coord); };
                 swordTarget.SwordHit(onKill);
             }
             else if (targetCard is IDefusableCard defusable)
             {
-                Action<bool> OnFinish = delegate (bool success)
+                Action<bool> OnFinish = async delegate (bool success)
                 {
                     if (!success)
                     {
                         playerCard.TakeDamage(defusable.Power);
                     }
 
-                    playerCard.Move(targetCard.Coord);
+                    await playerCard.Move(targetCard.Coord);
                 };
 
                 defusable.Defuse(OnFinish);

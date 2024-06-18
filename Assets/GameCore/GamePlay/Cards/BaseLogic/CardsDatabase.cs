@@ -16,4 +16,5 @@ public class CardsDatabase : ScriptableObject
     public CardData ZombieCard;
     public CardData CoinCard;
     public CardData PotionnCard;
+    public CardData SwordCard;
 }
