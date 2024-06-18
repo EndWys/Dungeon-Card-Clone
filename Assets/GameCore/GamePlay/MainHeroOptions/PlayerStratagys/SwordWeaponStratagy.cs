@@ -21,8 +21,8 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             }
             else if (targetCard is ISwordTargetCard swordTarget)
             {
-                Action onKill = async () => { await playerCard.Move(targetCard.Coord); };
-                swordTarget.SwordHit(onKill);
+                UniTask onKillTask = UniTask.Create(() => playerCard.Move(targetCard.Coord));
+                await swordTarget.SwordHit(onKillTask);
             }
             else if (targetCard is IDefusableCard defusable)
             {

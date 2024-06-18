@@ -1,8 +1,11 @@
 using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
+using Assets.GameCore.GamePlay.MainHeroOptions;
+using Cysharp.Threading.Tasks;
+using System;
 
-public abstract class BaseEnemyCardController : GameCardController, IFightableCard, IDamageAbleCard
+public abstract class BaseEnemyCardController : GameCardController, IFightableCard, IDamageAbleCard, ISwordTargetCard
 {
     private int _health;
     private string _healthString => _health.ToString();
@@ -32,5 +35,10 @@ public abstract class BaseEnemyCardController : GameCardController, IFightableCa
             _health -= damage;
 
         _gameCardView.OnCardUI.SetCardValue(_healthString);
+    }
+
+    public async UniTask SwordHit(UniTask onKill)
+    {
+        await onKill;
     }
 }

@@ -1,14 +1,15 @@
+using Cysharp.Threading.Tasks;
 using System;
 
 namespace Assets.GameCore.GamePlay.MainHeroOptions
 {
     public interface ISwordTargetCard
     {
-        void SwordHit(Action onKill);
+        UniTask SwordHit(UniTask onKill);
     }
 
     public interface IWandTargetCard
     {
-        void WandHit(Action onKill);
+        UniTask WandHit(Action onKill);
     }
 }
