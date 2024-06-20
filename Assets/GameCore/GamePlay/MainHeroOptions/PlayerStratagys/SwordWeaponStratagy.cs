@@ -3,6 +3,9 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Numerics;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
 {
@@ -21,22 +24,25 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             }
             else if (targetCard is ISwordTargetCard swordTarget)
             {
-                UniTask onKillTask = UniTask.Create(() => playerCard.Move(targetCard.Coord));
-                await swordTarget.SwordHit(onKillTask);
+                bool isDead = await swordTarget.SwordHit(playerCard.WieldingWeapon);
+
+                if (isDead)
+                    await playerCard.Move(targetCard.Coord);
             }
             else if (targetCard is IDefusableCard defusable)
             {
-                Action<bool> OnFinish = async delegate (bool success)
+                /*
+                Func<UniTask<bool>> OnFinish = (bool success) =>
                 {
                     if (!success)
                     {
                         playerCard.TakeDamage(defusable.Power);
                     }
 
-                    await playerCard.Move(targetCard.Coord);
-                };
+                    return await playerCard.Move(targetCard.Coord);
+                };*/
 
-                defusable.Defuse(OnFinish);
+                await defusable.Defuse(playerCard.Move(targetCard.Coord));
             }
         }
     }

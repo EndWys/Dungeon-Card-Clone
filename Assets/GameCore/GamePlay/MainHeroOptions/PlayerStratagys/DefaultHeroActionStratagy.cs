@@ -36,19 +36,20 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             }
             else if (targetCard is IDefusableCard defusable)
             {
-                Action<bool> OnFinish = delegate (bool success)
+                /*
+                Func<UniTask<bool>> OnFinish = (bool success) =>
                 {
-
                     if (!success)
                     {
                         playerCard.TakeDamage(defusable.Power);
                     }
 
-                    //playerCard.Move(targetCard.Coord);
-                };
+                    return await playerCard.Move(targetCard.Coord);
+                };*/
 
-                defusable.Defuse(OnFinish);
-                await playerCard.Move(targetCord);
+                UniTask OnFinish = UniTask.Create(() => playerCard.Move(targetCard.Coord));
+
+                await defusable.Defuse(OnFinish);
             }
         }
     }

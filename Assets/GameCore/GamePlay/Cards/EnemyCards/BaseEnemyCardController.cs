@@ -2,6 +2,7 @@ using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.MainHeroOptions;
+using Assets.GameCore.GamePlay.MainHeroOptions.Weapons;
 using Cysharp.Threading.Tasks;
 using System;
 
@@ -37,8 +38,18 @@ public abstract class BaseEnemyCardController : GameCardController, IFightableCa
         _gameCardView.OnCardUI.SetCardValue(_healthString);
     }
 
-    public async UniTask SwordHit(UniTask onKill)
+    public async UniTask<bool> SwordHit(IWeapon sword)
     {
-        await onKill;
+        if (sword == null) 
+            return false;
+
+        int power = sword.Power;
+        int health = _health;
+
+        sword.UseDurability(health);
+
+        TakeDamage(power);
+
+        return _health == 0;
     }
 }

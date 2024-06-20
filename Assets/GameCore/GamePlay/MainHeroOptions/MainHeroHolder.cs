@@ -1,6 +1,8 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
+using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys;
+using Assets.GameCore.GamePlay.MainHeroOptions.Weapons;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
@@ -68,9 +70,21 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             _isStepDone = true;
         }
 
-        public void EquipStratagy(IHeroActionStratagy heroStratagy)
+        public void EquipWeapon(IWeapon weapon)
         {
-            _heroActionStratagy = heroStratagy;
+            _playerCard.Wiel(weapon);
+            _heroActionStratagy = weapon.Stratagy;
+
+            weapon.OnDurabilityChange += (int dur) => {
+                if (dur == 0)
+                {
+                    _heroActionStratagy = new DefaultHeroActionStratagy();
+                    _playerCard.Unwiel();
+                }
+                else
+                    _playerCard.ChangeWeaponDurability(dur);
+            };
+            
         }
 
         public void ConsumeItem(Action<PlayerCardController> action)

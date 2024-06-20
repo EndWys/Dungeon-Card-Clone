@@ -1,25 +1,34 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.MainHeroOptions;
+using Assets.GameCore.GamePlay.MainHeroOptions.Weapons;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.PlayerCard
 {
-    public class PlayerCardController : GameCardController, IHealableCard
+    public class PlayerCardController : GameCardController, IHealableCard, IWeaponWielding
     {
         private int _health = 0;
         private int _maxHealth = 0;
+
+        private IWeapon _currentWeapon;
+
         private string _healthString => _health.ToString();
         public int Health => _health;
+
+        public IWeapon WieldingWeapon => _currentWeapon;
 
         public PlayerCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
         {
             _health = cardData.CardValueNumber;
             _maxHealth = _health;
+            _currentWeapon = null;
 
             _gameCardView.OnCardUI.SetCardName(cardData.CardName);
             _gameCardView.OnCardUI.SetCardValue(_healthString);
+
+            _gameCardView.AdditionalText.SetText("");
 
             MainHeroHolder.Instance.Init(this);
         }
@@ -53,6 +62,23 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
         public async UniTask StepDone()
         {
             await _parentCardField.Step();
+        }
+
+        public void Wiel(IWeapon weapon)
+        {
+            _currentWeapon = weapon;
+            _gameCardView.AdditionalText.SetText(weapon.Power.ToString());
+        }
+
+        public void Unwiel()
+        {
+            _currentWeapon = null;
+            _gameCardView.AdditionalText.SetText("");
+        }
+
+        public void ChangeWeaponDurability(int durability)
+        {
+            _gameCardView.AdditionalText.SetText(durability.ToString());
         }
     }
 }

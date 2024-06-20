@@ -2,6 +2,7 @@ using Assets.GameCore.PoolingSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,6 +11,9 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
     public class GameCardView : PoolingObject, IPointerClickHandler
     {
         [SerializeField] private OnCardUI _cardUI;
+        [SerializeField] private TextMeshProUGUI _additionalText;
+
+        public TextMeshProUGUI AdditionalText => _additionalText;
 
         public OnCardUI OnCardUI => _cardUI;
 
@@ -18,7 +22,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 
         public void Init()
         {
-
+            
         }
 
         public void OnPointerClick(PointerEventData eventData)

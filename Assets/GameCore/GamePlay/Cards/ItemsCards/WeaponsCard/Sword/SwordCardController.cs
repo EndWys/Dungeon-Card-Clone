@@ -3,25 +3,30 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.MainHeroOptions;
 using Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys;
+using Assets.GameCore.GamePlay.MainHeroOptions.Weapons;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordCardController : GameCardController, ICollectableCard
+public class SwordCardController : GameCardController, IWeaponCard
 {
-    private int _power;
+    private IWeapon _weapon;
+
+    public int Power => _weapon.Power;
+    public IWeapon Weapon => _weapon;
 
     public SwordCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView) : base(cardData, parentCardField, gameCardView)
     {
-        _power = cardData.CardValueNumber;
+
+        _weapon = new Sword(cardData.CardValueNumber, new SwordWeaponStratagy());
 
         _gameCardView.OnCardUI.SetCardName(cardData.CardName);
-        _gameCardView.OnCardUI.SetCardValue(_power.ToString());
+        _gameCardView.OnCardUI.SetCardValue(cardData.CardValueNumber.ToString());
 
     }
 
     public void Collect()
     {
-        MainHeroHolder.Instance.EquipStratagy(new SwordWeaponStratagy());
+        MainHeroHolder.Instance.EquipWeapon(_weapon);
     }
 }

@@ -1,3 +1,6 @@
+using Assets.GameCore.GamePlay.MainHeroOptions;
+using Assets.GameCore.GamePlay.MainHeroOptions.Weapons;
+using Cysharp.Threading.Tasks;
 using System;
 
 namespace Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces
@@ -5,6 +8,11 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces
     public interface ICollectableCard
     {
         void Collect();
+    }
+
+    public interface IWeaponCard : ICollectableCard
+    {
+        IWeapon Weapon { get; } 
     }
 
     public interface IDamageAbleCard
@@ -18,6 +26,15 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces
         void Heal(int amount);
     }
 
+    public interface IWeaponWielding
+    {
+        IWeapon WieldingWeapon { get; }
+
+        void Wiel(IWeapon weapon);
+
+        void Unwiel();
+    }
+
     public interface IFightableCard
     {
         int Power { get; }
@@ -27,7 +44,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces
     public interface IDefusableCard
     {
         int Power { get; }
-        void Defuse(Action<bool> OnFinish);
+        UniTask Defuse(UniTask OnFinish);
     }
 
     public interface IOpenableCard
