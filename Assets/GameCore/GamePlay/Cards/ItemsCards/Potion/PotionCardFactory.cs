@@ -1,4 +1,5 @@
-﻿using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
+﻿using Assets.GameCore.GamePlay.Cards.BaseLogic;
+using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using UnityEngine;
 

@@ -5,6 +5,7 @@ using Assets.GameCore.GamePlay;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.GameCore.GamePlay.Cards.BaseLogic;
 
 namespace Assets.GameCore.GamePlay.Cards.ItemsCards.WeaponsCard.Sword
 {

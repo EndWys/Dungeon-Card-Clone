@@ -1,3 +1,5 @@
+using Assets.GameCore.GamePlay.Cards.BaseLogic;
+using Assets.GameCore.GamePlay.MainHeroOptions.Equipe;
 using Assets.GameCore.Utilities;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -20,6 +22,7 @@ namespace Assets.GameCore.GameInitialization
             //...
             LoadingModuleRegistrations.register(builder);
             builder.Register<CardsDatabase>(Lifetime.Singleton);
+            builder.Register<EquipeDatabase>(Lifetime.Singleton);
             //...
             //Other refistrations
 

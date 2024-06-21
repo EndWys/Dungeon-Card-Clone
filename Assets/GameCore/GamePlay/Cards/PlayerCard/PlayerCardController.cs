@@ -1,3 +1,4 @@
+using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.MainHeroOptions;
@@ -28,7 +29,7 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
             _gameCardView.OnCardUI.SetCardName(cardData.CardName);
             _gameCardView.OnCardUI.SetCardValue(_healthString);
 
-            _gameCardView.AdditionalText.SetText("");
+            _gameCardView.OnCardEquipeUI.ChangeDurability("");
 
             MainHeroHolder.Instance.Init(this);
         }
@@ -67,18 +68,20 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
         public void Wiel(IWeapon weapon)
         {
             _currentWeapon = weapon;
-            _gameCardView.AdditionalText.SetText(weapon.Power.ToString());
+            _gameCardView.OnCardEquipeUI.Equipe(weapon.EquipeData.EqipeImage);
+            _gameCardView.OnCardEquipeUI.ChangeDurability(weapon.Power.ToString());
         }
 
         public void Unwiel()
         {
             _currentWeapon = null;
-            _gameCardView.AdditionalText.SetText("");
+            _gameCardView.OnCardEquipeUI.ChangeDurability("");
+            _gameCardView.OnCardEquipeUI.DeEquipe();
         }
 
         public void ChangeWeaponDurability(int durability)
         {
-            _gameCardView.AdditionalText.SetText(durability.ToString());
+            _gameCardView.OnCardEquipeUI.ChangeDurability(durability.ToString());
         }
     }
 }

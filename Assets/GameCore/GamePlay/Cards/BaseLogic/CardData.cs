@@ -1,12 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class CardData
+namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
-    public string CardName;
-    public int CardValueNumber;
-    public GameObject CardPrefab;
+    [Serializable]
+    public class CardData
+    {
+        public string CardName;
+        public int CardValueNumber;
+        public GameObject CardPrefab;
+    }
 }

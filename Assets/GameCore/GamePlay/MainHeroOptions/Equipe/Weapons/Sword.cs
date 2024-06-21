@@ -1,3 +1,4 @@
+using Assets.GameCore.GamePlay.MainHeroOptions.Equipe;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,14 +8,14 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.Weapons
 {
     public class Sword : IWeapon
     {
+        public EquipeData EquipeData => EquipeDatabase.Instance.Sword;
+
         private int _power;
         private IHeroActionStratagy _stratagy;
 
         public int Power => _power;
 
         public IHeroActionStratagy Stratagy => _stratagy;
-
-        public Action OnBroke { get; set; } = delegate { };
         public Action<int> OnDurabilityChange { get; set; } = delegate { };
 
         public Sword(int power, IHeroActionStratagy stratagy)
@@ -33,13 +34,6 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.Weapons
                 _power = 0;
 
             OnDurabilityChange.Invoke(_power);
-        }
-
-        public void Breake()
-        {
-            _power = 0;
-            OnBroke.Invoke();
-            OnBroke = delegate { };
         }
     }
 }
