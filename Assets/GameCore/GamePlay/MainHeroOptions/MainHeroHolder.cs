@@ -1,6 +1,8 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
+using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys;
+using Assets.GameCore.GamePlay.MainHeroOptions.Weapons;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
@@ -11,8 +13,10 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
     {
         private static MainHeroHolder _instance;
 
-        public static MainHeroHolder Instance { 
-            get {
+        public static MainHeroHolder Instance
+        {
+            get
+            {
                 if (_instance == null)
                     _instance = new MainHeroHolder();
 
@@ -24,20 +28,27 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
 
         private IHeroActionStratagy _heroActionStratagy;
 
-        private bool isInitialized = false;
+        private bool _isStepDone = false;
+
+        private bool _isInitialized = false;
 
         public void Init(PlayerCardController playerCard)
         {
             _playerCard = playerCard;
             _heroActionStratagy = new DefaultHeroActionStratagy();
 
-            isInitialized = true;
+            _isInitialized = true;
+            _isStepDone = true;
         }
 
         public async UniTask OnCardTap(GameCardController card)
         {
             Debug.Log("Tap - choose initialization");
-            if (!isInitialized) return;
+            if (!_isInitialized) return;
+
+            if (!_isStepDone) return;
+
+            _isStepDone = false;
 
             Debug.Log("Using stratagy");
             await _heroActionStratagy.UseStratagy(_playerCard, card);
@@ -54,12 +65,31 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             //ѕотом уже можем проверить на isDead Їту карту и удалить ее с пол€ и поставить монетку на ее место.
             //Eckb же оружи€ нет то вызываем метод IMob.TakeHit() и т.д.
 
-            _playerCard.StepDone();
+            await _playerCard.StepDone();
+
+            _isStepDone = true;
         }
 
-        public void EquipStratagy(IHeroActionStratagy heroStratagy)
+        public void EquipWeapon(IWeapon weapon)
         {
-            _heroActionStratagy = heroStratagy;
+            _playerCard.Wiel(weapon);
+            _heroActionStratagy = weapon.Stratagy;
+
+            weapon.OnDurabilityChange += (int dur) => {
+                if (dur == 0)
+                {
+                    _heroActionStratagy = new DefaultHeroActionStratagy();
+                    _playerCard.Unwiel();
+                }
+                else
+                    _playerCard.ChangeWeaponDurability(dur);
+            };
+            
+        }
+
+        public void ConsumeItem(Action<PlayerCardController> action)
+        {
+            action.Invoke(_playerCard);
         }
 
         public void Dispose()

@@ -34,7 +34,7 @@ namespace Assets.GameCore.GamePlay
             var slot = _cardSlots[origin];
             var targetSlot = _cardSlots[target];
             slot.Card.SetCoord(target);
-            if(targetSlot == null)
+            if (targetSlot == null)
             {
                 Debug.LogError("Target slot is null");
                 return;
@@ -64,7 +64,7 @@ namespace Assets.GameCore.GamePlay
                             card.Init();
                             card.SetCoord(slotCoord);
                             return;
-                        } 
+                        }
                     }
                 }
             }

@@ -17,14 +17,17 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 
     public abstract class GameCardController : IOnFieldCard
     {
-        protected IParentCardField _parentCardField;
-        private GameCardView _gameCardView;
+        private CardData _cardData;
 
         private Vector2Int _coord;
         public Vector2Int Coord => _coord;
 
-        public GameCardController(IParentCardField parentCardField, GameCardView gameCardView)
+        protected IParentCardField _parentCardField;
+        protected GameCardView _gameCardView;
+
+        public GameCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView)
         {
+            _cardData = cardData;
             _parentCardField = parentCardField;
             _gameCardView = gameCardView;
         }

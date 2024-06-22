@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
     public abstract class GameCardModel

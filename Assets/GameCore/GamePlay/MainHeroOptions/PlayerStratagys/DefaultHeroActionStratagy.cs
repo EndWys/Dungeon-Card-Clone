@@ -1,8 +1,10 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
+using Assets.GameCore.Utilities;
 using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
 {
@@ -10,10 +12,17 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
     {
         public async UniTask UseStratagy(PlayerCardController playerCard, GameCardController targetCard)
         {
+            Vector2Int playerCord = playerCard.Coord;
+            Vector2Int targetCord = targetCard.Coord;
+
+            bool isValidSlot = GamePlayeUtil.GetNeigneighbourSlots(playerCord).Contains(targetCord);
+
+            if (!isValidSlot) return;
+
             if (targetCard is ICollectableCard collectable)
             {
                 collectable.Collect();
-                await playerCard.Move(targetCard.Coord);
+                await playerCard.Move(targetCord);
             }
             else if (targetCard is IOpenableCard openable)
             {
@@ -21,25 +30,26 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions.PlayerStratagys
             }
             else if (targetCard is IFightableCard fightable)
             {
-                fightable.Fight();
                 playerCard.TakeDamage(fightable.Power);
-                await playerCard.Move(targetCard.Coord);
+                fightable.Fight();
+                await playerCard.Move(targetCord);
             }
             else if (targetCard is IDefusableCard defusable)
             {
-                Action<bool> OnFinish = delegate (bool success)
+                /*
+                Func<UniTask<bool>> OnFinish = (bool success) =>
                 {
-
                     if (!success)
                     {
                         playerCard.TakeDamage(defusable.Power);
                     }
 
-                    //playerCard.Move(targetCard.Coord);
-                };
+                    return await playerCard.Move(targetCard.Coord);
+                };*/
 
-                defusable.Defuse(OnFinish);
-                await playerCard.Move(targetCard.Coord);
+                UniTask OnFinish = UniTask.Create(() => playerCard.Move(targetCard.Coord));
+
+                await defusable.Defuse(OnFinish);
             }
         }
     }

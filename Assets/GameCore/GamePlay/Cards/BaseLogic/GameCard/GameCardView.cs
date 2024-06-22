@@ -2,6 +2,7 @@ using Assets.GameCore.PoolingSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,6 +10,15 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 {
     public class GameCardView : PoolingObject, IPointerClickHandler
     {
+        [SerializeField] private OnCardUI _cardUI;
+
+        [SerializeField] private OnCardEquipeUI _equipeUI;
+
+        public OnCardUI OnCardUI => _cardUI;
+
+        //Кастыль, это поле не должно использоваться всеми контроллерами кард, оно должно быть только для Плейра
+        public OnCardEquipeUI OnCardEquipeUI => _equipeUI;
+
         public event Action OnCardTap;
         public event Action OnKill;
 

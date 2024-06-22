@@ -1,4 +1,5 @@
 using Assets.GameCore.GamePlay;
+using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
@@ -7,17 +8,20 @@ using UnityEngine;
 
 public class PlayerCardFactory : CardsFactoryBase
 {
-    public PlayerCardFactory(CardsPool cardsPool, IParentCardField parentCardField) : base(cardsPool, parentCardField)
+    //Temporary constanta
+    private const int HEALTH = 10;
+
+    public PlayerCardFactory(IParentCardField parentCardField) : base(parentCardField)
     {
     }
 
+    protected override CardData _cardData => _database.PlayerCard;
+
     public override GameCardController CreateCard(Transform parent)
     {
-        var type = typeof(PlayerCardController);
+        GameCardView gameCardView = _pool.CollectCard(parent);
+        gameCardView.OnKill += () => _pool.ReleaseCard(gameCardView);
 
-        GameCardView gameCardView = _cardsPool.CollectCard(type, parent);
-        gameCardView.OnKill += () => _cardsPool.Release(type, gameCardView);
-
-        return new PlayerCardController(_parentCardField, gameCardView);
+        return new PlayerCardController(_cardData, _parentCardField, gameCardView);
     }
 }

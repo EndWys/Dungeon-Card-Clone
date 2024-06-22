@@ -6,14 +6,17 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory
 {
     public abstract class CardsFactoryBase
     {
+        private DefaultCardsPoolContainer _cardsPoolContainer = new DefaultCardsPoolContainer();
+
         protected IParentCardField _parentCardField;
+        protected CardsDatabase _database => CardsDatabase.Instance;
+        protected ICardsPoolContainer _pool => _cardsPoolContainer;
+        protected abstract CardData _cardData { get; }
 
-        protected CardsPool _cardsPool;
-
-        public CardsFactoryBase(CardsPool cardsPool, IParentCardField parentCardField)
+        public CardsFactoryBase(IParentCardField parentCardField)
         {
-            _cardsPool = cardsPool;
             _parentCardField = parentCardField;
+            _cardsPoolContainer.Initialize(_cardData.CardPrefab);
         }
 
         public abstract GameCardController CreateCard(Transform parent);

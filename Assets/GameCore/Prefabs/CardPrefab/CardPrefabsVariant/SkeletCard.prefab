@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 1996937028388669902}
   - component: {fileID: 2047424870596362317}
   - component: {fileID: 6590462582476473428}
-  - component: {fileID: 8158756952663989953}
+  - component: {fileID: 4819243926893831724}
   m_Layer: 5
   m_Name: SkeletCard
   m_TagString: Untagged
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8158756952663989953
+--- !u!114 &4819243926893831724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,10 +355,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1253508310576253656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c7c188af2b5a0f43979be29216c1cbf, type: 3}
+  m_Script: {fileID: 11500000, guid: d30e2be2a75086847a2cc6420ed4ddd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onCardUI: {fileID: 3468395838984752802}
+  _cardUI: {fileID: 3468395838984752802}
 --- !u!1 &5526928179850162517
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,6 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
 {
     public interface IHeroActionStratagy
     {
-        UniTask UseStratagy(PlayerCardController playerCard, GameCardController targetCard); 
+        UniTask UseStratagy(PlayerCardController playerCard, GameCardController targetCard);
     }
 }

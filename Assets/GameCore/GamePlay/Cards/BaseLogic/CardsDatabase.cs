@@ -1,18 +1,23 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardsDatabase", menuName = "CardsDatabase")]
-public class CardsDatabase : ScriptableObject
+namespace Assets.GameCore.GamePlay.Cards.BaseLogic
 {
-    private static CardsDatabase _instance;
-    public static CardsDatabase Instance => _instance;
-
-    public static void SetInstance(CardsDatabase cardData)
+    [CreateAssetMenu(fileName = "CardsDatabase", menuName = "CardsDatabase")]
+    public class CardsDatabase : ScriptableObject
     {
-        _instance = cardData;
-    }
+        private static CardsDatabase _instance;
+        public static CardsDatabase Instance => _instance;
 
-    public GameObject PlayerCard;
-    public GameObject MobCard;
-    public GameObject CoinCard;
-    public GameObject PotionnCard;
+        public static void SetInstance(CardsDatabase cardData)
+        {
+            _instance = cardData;
+        }
+
+        public CardData PlayerCard;
+        public CardData SkeletCard;
+        public CardData ZombieCard;
+        public CardData CoinCard;
+        public CardData PotionnCard;
+        public CardData SwordCard;
+    }
 }

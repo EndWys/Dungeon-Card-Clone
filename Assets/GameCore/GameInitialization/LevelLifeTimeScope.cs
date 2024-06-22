@@ -13,11 +13,10 @@ namespace Assets.GameCore.GameInitialization
         [SerializeField] private GameFildView _gameFieldView;
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<CardsPool>(Lifetime.Singleton);
             builder.Register<CardsSpawner>(Lifetime.Singleton);
             builder.RegisterComponent(_gameFieldView);
             builder.Register<GameFieldInitializer>(Lifetime.Singleton).As<IInitializableField>();
-            builder.Register<GameFieldController>(Lifetime.Singleton);
+            builder.Register<GameFieldController>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.RegisterEntryPoint<LevelStarter>();
         }
     }
