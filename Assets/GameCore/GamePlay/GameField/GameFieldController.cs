@@ -1,6 +1,8 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
+using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
 using Assets.GameCore.GamePlay.GameField;
+using Assets.GameCore.GamePlay.MainHeroOptions;
 using Assets.GameCore.Utilities;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
@@ -12,13 +14,14 @@ namespace Assets.GameCore.GamePlay
 {
     public interface IParentCardField
     {
+        UniTask ExecutePlayerStep(GameCardController target);
         UniTask MoveCard(Vector2Int target, Vector2Int origin);
-
-        UniTask Step();
     }
     public class GameFieldController : IParentCardField
     {
         private CardsSpawner _cardsSpawner;
+
+        private bool _isCurrentStepDone = false;
 
         private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
 
@@ -27,6 +30,29 @@ namespace Assets.GameCore.GamePlay
         {
             _cardsSpawner = cardsSpawner;
             _cardSlots = fieldInitializer.GetField();
+
+            _isCurrentStepDone = true;
+        }
+
+        public async UniTask ExecutePlayerStep(GameCardController target)
+        {
+            if (!MainHeroHolder.Instance.IsInitialized) return;
+
+            if (!_isCurrentStepDone) return;
+
+            _isCurrentStepDone = false;
+
+            await MainHeroHolder.Instance.ExecuteHeroAction(target);
+
+            await StepFinishing();
+
+            _isCurrentStepDone = true;
+
+            if (MainHeroHolder.Instance.IsHeroDead())
+            {
+                //MatchController.EndMatch or RestartMatch
+            }
+
         }
 
         public async UniTask MoveCard(Vector2Int target, Vector2Int origin)
@@ -42,7 +68,7 @@ namespace Assets.GameCore.GamePlay
             await slot.MoveCard(targetSlot);
         }
 
-        public async UniTask Step()
+        private async UniTask StepFinishing()
         {
             if (TryToGetEmptySlot(out Vector2Int coordToFill))
             {

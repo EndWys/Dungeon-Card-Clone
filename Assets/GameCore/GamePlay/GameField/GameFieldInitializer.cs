@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
@@ -58,6 +59,14 @@ namespace Assets.GameCore.GamePlay.GameField
                     card.Init();
                     card.SetCoord(coord);
                 }
+            }
+        }
+
+        private async UniTask DestroyField()
+        {
+            foreach (var slot in _cardSlots.Values)
+            {
+                await slot.RemoveCard();
             }
         }
     }

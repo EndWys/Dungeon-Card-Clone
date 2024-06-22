@@ -25,6 +25,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
         protected IParentCardField _parentCardField;
         protected GameCardView _gameCardView;
 
+
         public GameCardController(CardData cardData, IParentCardField parentCardField, GameCardView gameCardView)
         {
             _cardData = cardData;
@@ -44,7 +45,7 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
 
         public void CardTap()
         {
-            MainHeroHolder.Instance.OnCardTap(this).Forget();
+            _parentCardField.ExecutePlayerStep(this);
         }
 
         public async UniTask Move(Vector2Int target)

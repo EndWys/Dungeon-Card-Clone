@@ -28,9 +28,8 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
 
         private IHeroActionStratagy _heroActionStratagy;
 
-        private bool _isStepDone = false;
-
         private bool _isInitialized = false;
+        public bool IsInitialized => _isInitialized;
 
         public void Init(PlayerCardController playerCard)
         {
@@ -38,18 +37,12 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             _heroActionStratagy = new DefaultHeroActionStratagy();
 
             _isInitialized = true;
-            _isStepDone = true;
         }
 
-        public async UniTask OnCardTap(GameCardController card)
+        public bool IsHeroDead() => _playerCard.Health == 0;
+
+        public async UniTask ExecuteHeroAction(GameCardController card)
         {
-            Debug.Log("Tap - choose initialization");
-            if (!_isInitialized) return;
-
-            if (!_isStepDone) return;
-
-            _isStepDone = false;
-
             Debug.Log("Using stratagy");
             await _heroActionStratagy.UseStratagy(_playerCard, card);
 
@@ -64,10 +57,6 @@ namespace Assets.GameCore.GamePlay.MainHeroOptions
             //Пример: если у игрока мечь и у карты IWeaponTarget реализован, то вызывается метод IWeaponTarget.TakeHit()
             //Потом уже можем проверить на isDead єту карту и удалить ее с поля и поставить монетку на ее место.
             //Eckb же оружия нет то вызываем метод IMob.TakeHit() и т.д.
-
-            await _playerCard.StepDone();
-
-            _isStepDone = true;
         }
 
         public void EquipWeapon(IWeapon weapon)

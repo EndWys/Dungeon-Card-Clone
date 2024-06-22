@@ -60,11 +60,6 @@ namespace Assets.GameCore.GamePlay.Cards.PlayerCard
             _gameCardView.OnCardUI.SetCardValue(_healthString);
         }
 
-        public async UniTask StepDone()
-        {
-            await _parentCardField.Step();
-        }
-
         public void Wiel(IWeapon weapon)
         {
             _currentWeapon = weapon;
