@@ -5,6 +5,7 @@ using Assets.GameCore.GamePlay.GameField;
 using Assets.GameCore.GamePlay.MainHeroOptions;
 using Assets.GameCore.Utilities;
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,18 +13,31 @@ using VContainer;
 
 namespace Assets.GameCore.GamePlay
 {
+    public interface IGameStarter
+    {
+        public bool IsGameActive();
+        public void StartingNewGame();
+    }
+    public interface IGameFinisher
+    {
+        public event Action OnGameFinish;
+    }
     public interface IParentCardField
     {
         UniTask ExecutePlayerStep(GameCardController target);
         UniTask MoveCard(Vector2Int target, Vector2Int origin);
     }
-    public class GameFieldController : IParentCardField
+    public class GameFieldController : IParentCardField, IGameFinisher, IGameStarter
     {
         private CardsSpawner _cardsSpawner;
 
         private bool _isCurrentStepDone = false;
 
         private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
+
+        private bool _isGameActive;
+
+        public event Action OnGameFinish;
 
         [Inject]
         private GameFieldController(CardsSpawner cardsSpawner, IInitializableField fieldInitializer)
@@ -34,8 +48,16 @@ namespace Assets.GameCore.GamePlay
             _isCurrentStepDone = true;
         }
 
+        public bool IsGameActive() => _isGameActive;
+        public void StartingNewGame()
+        {
+            _isGameActive = true;
+        }
+
         public async UniTask ExecutePlayerStep(GameCardController target)
         {
+            if(!IsGameActive()) return;
+
             if (!MainHeroHolder.Instance.IsInitialized) return;
 
             if (!_isCurrentStepDone) return;
@@ -50,9 +72,9 @@ namespace Assets.GameCore.GamePlay
 
             if (MainHeroHolder.Instance.IsHeroDead())
             {
-                //MatchController.EndMatch or RestartMatch
+                _isGameActive = false;
+                OnGameFinish.Invoke();
             }
-
         }
 
         public async UniTask MoveCard(Vector2Int target, Vector2Int origin)

@@ -1,6 +1,7 @@
 using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.GameField;
+using Assets.GameCore.GamePlay.MatchSystem;
 using VContainer;
 using VContainer.Unity;
 
@@ -8,23 +9,28 @@ namespace Assets.GameCore.GameInitialization
 {
     public class LevelStarter : IStartable
     {
-        private IInitializableField _fieldInitializer;
+
+        private MatchController _matchController;
         //private IDisposeableField _fieldDisposer;
-        private GameFieldController _fieldController;
+        private IParentCardField _cardField;
         private CardsSpawner _cardsSpawner;
 
         [Inject]
-        public LevelStarter(IInitializableField fieldInitialazer, GameFieldController gameFieldController, CardsSpawner cardsSpawner)
+        public LevelStarter(MatchController matchController, IParentCardField cardField, CardsSpawner cardsSpawner)
         {
-            _fieldInitializer = fieldInitialazer;
-            _fieldController = gameFieldController;
+            _matchController = matchController;
+            _cardField = cardField;
             _cardsSpawner = cardsSpawner;
         }
 
         public void Start()
         {
-            _cardsSpawner.Init(_fieldController);
-            _fieldInitializer.InitializeField();
+            _cardsSpawner.Init(_cardField);
+
+            _matchController.StartNewMatch();
+
+            //TODO:Making this inside MatchController in MatchStart()
+
             //_fieldDisposer.WaitingForDisposeField();
         }
     }

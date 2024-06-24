@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCard:
     CardName: HERO
-    CardValueNumber: 12
+    CardValueNumber: 3
     CardPrefab: {fileID: 8822032956520037494, guid: 0c0770ff8b3446a4290bd9aa33cde13f, type: 3}
   SkeletCard:
     CardName: Skele
@@ -34,5 +34,5 @@ MonoBehaviour:
     CardPrefab: {fileID: 6469814492995371742, guid: 5f8080e69ec6688449b9b8e6302d9cdf, type: 3}
   SwordCard:
     CardName: Sword
-    CardValueNumber: 8
+    CardValueNumber: 2
     CardPrefab: {fileID: 6469814492995371742, guid: 796c00735fd9b48429b6f994b12db520, type: 3}

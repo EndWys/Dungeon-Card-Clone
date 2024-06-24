@@ -13,7 +13,12 @@ namespace Assets.GameCore.GamePlay.GameField
         void InitializeField();
     }
 
-    public class GameFieldInitializer : IInitializableField
+    public interface IFieldReseter
+    {
+        UniTask RestField();
+    }
+
+    public class GameFieldInitializer : IInitializableField, IFieldReseter
     {
         private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
         private static int FIELD_SIZE => GameFildView.FIELD_SIZE;
@@ -62,7 +67,7 @@ namespace Assets.GameCore.GamePlay.GameField
             }
         }
 
-        private async UniTask DestroyField()
+        public async UniTask RestField()
         {
             foreach (var slot in _cardSlots.Values)
             {
