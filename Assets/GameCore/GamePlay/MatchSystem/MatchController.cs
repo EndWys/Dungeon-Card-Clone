@@ -23,15 +23,21 @@ namespace Assets.GameCore.GamePlay.MatchSystem
             gameFinisher.OnGameFinish += FinishMatch;
         }
 
-        public void StartNewMatch()
+        public async UniTask StartNewMatch()
         {
-            _fieldInitializer.InitializeField();
+            await _fieldInitializer.InitializeField();
             _gameStarter.StartingNewGame();
         }
 
-        public void FinishMatch()
+        public async void FinishMatch()
         {
-            _fieldReseter.RestField().ContinueWith(StartNewMatch).Forget();
+            await RestartMatch();
+        }
+
+        public async UniTask RestartMatch()
+        {
+            await _fieldReseter.RestField();
+            await StartNewMatch();
         }
     }
 }

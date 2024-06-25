@@ -10,7 +10,7 @@ namespace Assets.GameCore.GamePlay.GameField
     public interface IInitializableField
     {
         IReadOnlyDictionary<Vector2Int, GameCardSlot> GetField();
-        void InitializeField();
+        UniTask InitializeField();
     }
 
     public interface IFieldReseter
@@ -39,7 +39,7 @@ namespace Assets.GameCore.GamePlay.GameField
             return _cardSlots;
         }
 
-        public void InitializeField()
+        public async UniTask InitializeField()
         {
             for (int y = 0; y < FIELD_SIZE; y++)
             {

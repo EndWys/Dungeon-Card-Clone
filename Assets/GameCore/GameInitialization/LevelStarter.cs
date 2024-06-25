@@ -23,11 +23,11 @@ namespace Assets.GameCore.GameInitialization
             _cardsSpawner = cardsSpawner;
         }
 
-        public void Start()
+        public async void Start()
         {
             _cardsSpawner.Init(_cardField);
 
-            _matchController.StartNewMatch();
+            await _matchController.StartNewMatch();
 
             //TODO:Making this inside MatchController in MatchStart()
 
