@@ -25,6 +25,7 @@ namespace Assets.GameCore.GamePlay.MatchSystem
 
         public async UniTask StartNewMatch()
         {
+            CoinsMatchManager.Instance.ResetCurrency();
             await _fieldInitializer.InitializeField();
             _gameStarter.StartingNewGame();
         }

@@ -27,5 +27,10 @@ namespace Assets.GameCore.GameCoreSystems.Currencies
 
             CurrencyValue -= value;
         }
+
+        public void ResetCurrency()
+        {
+            SubstractCurrency(CurrencyValue);
+        }
     }
 }
