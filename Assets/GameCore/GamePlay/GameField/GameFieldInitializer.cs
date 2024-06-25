@@ -1,5 +1,6 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
@@ -9,10 +10,15 @@ namespace Assets.GameCore.GamePlay.GameField
     public interface IInitializableField
     {
         IReadOnlyDictionary<Vector2Int, GameCardSlot> GetField();
-        void InitializeField();
+        UniTask InitializeField();
     }
 
-    public class GameFieldInitializer : IInitializableField
+    public interface IFieldReseter
+    {
+        UniTask RestField();
+    }
+
+    public class GameFieldInitializer : IInitializableField, IFieldReseter
     {
         private static Vector2Int PLAYER_SPAWN = new Vector2Int(1, 1);
         private static int FIELD_SIZE => GameFildView.FIELD_SIZE;
@@ -33,7 +39,7 @@ namespace Assets.GameCore.GamePlay.GameField
             return _cardSlots;
         }
 
-        public void InitializeField()
+        public async UniTask InitializeField()
         {
             for (int y = 0; y < FIELD_SIZE; y++)
             {
@@ -58,6 +64,14 @@ namespace Assets.GameCore.GamePlay.GameField
                     card.Init();
                     card.SetCoord(coord);
                 }
+            }
+        }
+
+        public async UniTask RestField()
+        {
+            foreach (var slot in _cardSlots.Values)
+            {
+                await slot.RemoveCard();
             }
         }
     }

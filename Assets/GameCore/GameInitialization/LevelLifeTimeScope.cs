@@ -2,6 +2,7 @@ using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.GameField;
+using Assets.GameCore.GamePlay.MatchSystem;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -15,8 +16,9 @@ namespace Assets.GameCore.GameInitialization
         {
             builder.Register<CardsSpawner>(Lifetime.Singleton);
             builder.RegisterComponent(_gameFieldView);
-            builder.Register<GameFieldInitializer>(Lifetime.Singleton).As<IInitializableField>();
+            builder.Register<GameFieldInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GameFieldController>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<MatchController>(Lifetime.Singleton);
             builder.RegisterEntryPoint<LevelStarter>();
         }
     }
