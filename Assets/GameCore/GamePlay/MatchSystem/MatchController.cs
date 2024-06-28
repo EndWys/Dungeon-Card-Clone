@@ -13,19 +13,27 @@ namespace Assets.GameCore.GamePlay.MatchSystem
         private IInitializableField _fieldInitializer;
         private IFieldReseter _fieldReseter;
 
+        private IFieldsManagerFolder _fieldsManagerFolder;
+        
         [Inject]
-        private MatchController(IInitializableField gameFieldInitializer, IFieldReseter fieldReseter, IGameFinisher gameFinisher, IGameStarter gameStarter)
+        private MatchController(IInitializableField gameFieldInitializer,
+            IFieldsManagerFolder fieldsManagerFolder,
+            IFieldReseter fieldReseter,
+            IGameFinisher gameFinisher,
+            IGameStarter gameStarter)
         {
             _fieldInitializer = gameFieldInitializer;
             _fieldReseter = fieldReseter;
             _gameStarter = gameStarter;
+
+            _fieldsManagerFolder = fieldsManagerFolder;
 
             gameFinisher.OnGameFinish += FinishMatch;
         }
 
         public async UniTask StartNewMatch()
         {
-            CoinsMatchManager.Instance.ResetCurrency();
+            _fieldsManagerFolder.Managers.CoinsMatchManager.ResetCurrency();
             await _fieldInitializer.InitializeField();
             _gameStarter.StartingNewGame();
         }

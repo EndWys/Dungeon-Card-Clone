@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: Assets.GameCore.GameInitialization.ApplicationLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   _gameFieldView: {fileID: 2038498504}

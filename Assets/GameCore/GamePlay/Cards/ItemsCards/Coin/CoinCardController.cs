@@ -1,7 +1,7 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
-using Assets.GameCore.GamePlay.Currencies;
+using Assets.GameCore.GamePlay.GameField;
 using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Coin
@@ -25,8 +25,9 @@ namespace Assets.GameCore.GamePlay.Cards.ItemsCards.Coin
             //Add coin to player score
             //Then kill this card
             Debug.Log("Coin collected");
-            CoinsGlobalManager.Instance.AddCurrency(_value);
-            CoinsMatchManager.Instance.AddCurrency(_value);
+
+            _parentCardField.Managers.CoinsGlobalManager.AddCurrency(_value);
+            _parentCardField.Managers.CoinsMatchManager.AddCurrency(_value);
         }
     }
 }

@@ -2,6 +2,7 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
+using Assets.GameCore.GamePlay.GameField;
 using UnityEngine;
 
 namespace Assets.GameCore.GamePlay.Cards.EnemyCards.Skelet

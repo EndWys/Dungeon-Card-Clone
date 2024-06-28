@@ -1,6 +1,7 @@
 using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
+using Assets.GameCore.GamePlay.Currencies;
 using Assets.GameCore.GamePlay.GameField;
 using Assets.GameCore.GamePlay.MainHeroOptions;
 using Assets.GameCore.Utilities;
@@ -13,37 +14,27 @@ using VContainer;
 
 namespace Assets.GameCore.GamePlay
 {
-    public interface IGameStarter
-    {
-        public bool IsGameActive();
-        public void StartingNewGame();
-    }
-    public interface IGameFinisher
-    {
-        public event Action OnGameFinish;
-    }
-    public interface IParentCardField
-    {
-        UniTask ExecutePlayerStep(GameCardController target);
-        UniTask MoveCard(Vector2Int target, Vector2Int origin);
-    }
     public class GameFieldController : IParentCardField, IGameFinisher, IGameStarter
     {
-        private CardsSpawner _cardsSpawner;
-
         private bool _isCurrentStepDone = false;
+        private bool _isGameActive;
 
+        private CardsSpawner _cardsSpawner;
         private IReadOnlyDictionary<Vector2Int, GameCardSlot> _cardSlots;
 
-        private bool _isGameActive;
+        private GameFieldManagerHolder _gameFieldManagerHolder;
 
         public event Action OnGameFinish;
 
+        public GameFieldManagerHolder Managers => _gameFieldManagerHolder;
+
         [Inject]
-        private GameFieldController(CardsSpawner cardsSpawner, IInitializableField fieldInitializer)
+        private GameFieldController(CardsSpawner cardsSpawner, GameFieldManagerHolder gameFieldManagers, IInitializableField fieldInitializer)
         {
             _cardsSpawner = cardsSpawner;
             _cardSlots = fieldInitializer.GetField();
+
+            _gameFieldManagerHolder = gameFieldManagers;
 
             _isCurrentStepDone = true;
         }

@@ -4,6 +4,7 @@ using Assets.GameCore.GamePlay.Cards.BaseLogic.CardsFactory;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.CardsFactory.CardsPooling;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
+using Assets.GameCore.GamePlay.GameField;
 using UnityEngine;
 
 public class PlayerCardFactory : CardsFactoryBase

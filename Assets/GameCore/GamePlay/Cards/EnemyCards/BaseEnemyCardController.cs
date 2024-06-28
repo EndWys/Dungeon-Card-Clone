@@ -2,6 +2,7 @@ using Assets.GameCore.GamePlay;
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard;
 using Assets.GameCore.GamePlay.Cards.BaseLogic.Interfaces;
+using Assets.GameCore.GamePlay.GameField;
 using Assets.GameCore.GamePlay.MainHeroOptions;
 using Assets.GameCore.GamePlay.MainHeroOptions.Weapons;
 using Cysharp.Threading.Tasks;

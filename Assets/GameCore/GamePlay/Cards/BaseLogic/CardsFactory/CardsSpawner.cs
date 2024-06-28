@@ -6,6 +6,7 @@ using Assets.GameCore.GamePlay.Cards.ItemsCards.Coin;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.Potion;
 using Assets.GameCore.GamePlay.Cards.ItemsCards.WeaponsCard.Sword;
 using Assets.GameCore.GamePlay.Cards.PlayerCard;
+using Assets.GameCore.GamePlay.GameField;
 using System;
 using System.Collections.Generic;
 using System.Linq;
