@@ -1,4 +1,5 @@
 using Assets.GameCore.GameCoreSystems.Managers;
+using Assets.GameCore.GameCoreSystems.UISystem;
 using Assets.GameCore.GamePlay.Cards.BaseLogic;
 using Assets.GameCore.GamePlay.MainHeroOptions.Equipe;
 using Assets.GameCore.Utilities;
@@ -25,7 +26,8 @@ namespace Assets.GameCore.GameInitialization
             builder.Register<CardsDatabase>(Lifetime.Singleton);
             builder.Register<EquipeDatabase>(Lifetime.Singleton);
 
-            ManagerRegistrator.RegistrManager(builder);
+            ManagerRegistrator.Register(builder);
+            RouteFactoriesRgistrator.Register(builder);
             //...
             //Other refistrations
 

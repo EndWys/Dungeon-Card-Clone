@@ -1,4 +1,5 @@
 using DG.Tweening.Core.Easing;
+using System;
 using UnityEngine;
 
 namespace Assets.GameCore.GameCoreSystems.Currencies
@@ -10,6 +11,8 @@ namespace Assets.GameCore.GameCoreSystems.Currencies
         public int CurrencyValue { get; private set; }
         public int Currency => CurrencyValue;
 
+        public event Action<int> CurrencyChanged = (int v) => { };
+
         public void AddCurrency(int value)
         {
             if (value <= 0)
@@ -18,6 +21,7 @@ namespace Assets.GameCore.GameCoreSystems.Currencies
             CurrencyValue += value;
 
             Debug.Log($"CurrentBalance, {CurrencyName}: {CurrencyValue}");
+            CurrencyChanged.Invoke(CurrencyValue);
         }
 
         public void SubstractCurrency(int value)
@@ -26,6 +30,7 @@ namespace Assets.GameCore.GameCoreSystems.Currencies
                 return;
 
             CurrencyValue -= value;
+            CurrencyChanged.Invoke(CurrencyValue);
         }
 
         public void ResetCurrency()

@@ -13,6 +13,7 @@ namespace Assets.GameCore.GameInitialization
     public class LevelLifeTImeScope : LifetimeScope
     {
         [SerializeField] private GameFildView _gameFieldView;
+        [SerializeField] private MainLevelTopPanel _mainLevelTopPanel;
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<GameFieldManagerHolder>(Lifetime.Singleton);
@@ -21,6 +22,7 @@ namespace Assets.GameCore.GameInitialization
             builder.Register<GameFieldInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GameFieldController>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<MatchController>(Lifetime.Singleton);
+            builder.RegisterComponent(_mainLevelTopPanel);
             builder.RegisterEntryPoint<LevelStarter>();
         }
     }

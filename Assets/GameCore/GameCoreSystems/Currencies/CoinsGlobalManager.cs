@@ -7,10 +7,6 @@ namespace Assets.GameCore.GamePlay.Currencies
     {
         protected override string CurrencyName => "Global";
 
-        [Inject]
-        public CoinsGlobalManager()
-        {
-           
-        }
+        
     }
 }
