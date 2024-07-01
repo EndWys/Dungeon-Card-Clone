@@ -55,8 +55,8 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
             base.OnRelease();
             ShowView().Forget();
 
-            OnCardTap = null;
-            OnKill = null;
+            OnCardTap = () => {};
+            OnKill = () => { };
         }
 
         public void Kill()

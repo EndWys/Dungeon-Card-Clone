@@ -57,6 +57,8 @@ namespace Assets.GameCore.GamePlay.Cards.BaseLogic.GameCard
         public void Kill()
         {
             _gameCardView.Kill();
+            _gameCardView.OnCardTap -= CardTap;
+
         }
 
         public void SetParent(Transform parent)

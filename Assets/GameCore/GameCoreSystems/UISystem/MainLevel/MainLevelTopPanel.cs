@@ -20,4 +20,9 @@ public class MainLevelTopPanel : MonoBehaviour
     {
         _coinsCounter.SetText(value.ToString());
     }
+
+    private void OnDisable()
+    {
+        _coinsMatchManager.CurrencyChanged -= OnCoinsChange;
+    }
 }
